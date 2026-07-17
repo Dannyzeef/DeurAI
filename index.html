@@ -3,15 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeurAI</title>
+    <title>DeurAI - Alles voor de Deuren Scene</title>
+    <style>
+        /* Basis styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            color: #333;
+            scroll-behavior: smooth; /* Zorgt voor soepel scrollen naar secties */
+        }
+
+        /* Navigatiebalk */
+        header {
+            background-color: #1a1a1a;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            color: #ff5722; /* Een mooie, opvallende kleur voor DeurAI */
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff5722;
+        }
+
+        /* Secties styling */
+        section {
+            padding: 100px 20px 80px 20px; /* Ruimte aan de bovenkant zodat het menu er niet overheen valt */
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 60vh; /* Zorgt dat elke sectie lekker de ruimte krijgt */
+        }
+
+        /* Alternerende achtergronden voor contrast */
+        section:nth-child(even) {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 60px 40px;
+        }
+
+        h2 {
+            color: #1a1a1a;
+            border-bottom: 3px solid #ff5722;
+            padding-bottom: 10px;
+            display: inline-block;
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        /* Placeholders voor de functionele onderdelen */
+        .placeholder-box {
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-<body style="margin:0;background:#121212;color:white;font-family:Arial,Helvetica,sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;flex-direction:column;">
+<body>
 
-<h1 style="font-size:60px;">🚪 DeurAI</h1>
+    <!-- Navigatiebalk bovenaan -->
+    <header>
+        <nav>
+            <a href="#introductie" class="logo">DeurAI</a>
+            <ul class="nav-links">
+                <li><a href="#introductie">Introductie</a></li>
+                <li><a href="#kennisbank">Kennisbank</a></li>
+                <li><a href="#zoekfunctie">DeurAI Zoeken</a></li>
+                <li><a href="#calculator">Calculator</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<p style="font-size:24px;">
-De eerste versie van mijn website is online!
-</p>
+    <!-- Sectie 1: Introductie -->
+    <section id="introductie">
+        <h2>Introductie</h2>
+        <p>Welkom bij DeurAI! Deze website is bedoeld als hulp en ondersteuning voor iedereen in de Deuren Scene. Of je nu een monteur bent, een verkoper, of gewoon op zoek bent naar de juiste informatie: hier vind je antwoorden op je vragen en handige tools om je werk makkelijker te maken.</p>
+    </section>
+
+    <!-- Sectie 2: Kennisbank -->
+    <section id="kennisbank">
+        <h2>Kennisbank</h2>
+        <p>In deze kennisbank vind je na verloop van tijd alle handleidingen en technische documentatie die wij bezitten. Alles overzichtelijk op één plek.</p>
+        <div class="placeholder-box">
+            <h3>[Binnenkort beschikbaar]</h3>
+            <p>Hier komen de categorieën en links naar de PDF-handleidingen te staan.</p>
+        </div>
+    </section>
+
+    <!-- Sectie 3: DeurAI Zoekfunctie -->
+    <section id="zoekfunctie">
+        <h2>DeurAI Zoeken (Lichte AI)</h2>
+        <p>Stel hier straks je vraag en onze AI-assistent zoekt direct het juiste antwoord voor je op in alle geüploade handleidingen.</p>
+        <div class="placeholder-box">
+            <h3>[AI Zoekfunctie Placeholder]</h3>
+            <p>Hier komt de chat-interface waarin je vragen kunt stellen aan de handleidingen database.</p>
+        </div>
+    </section>
+
+    <!-- Sectie 4: Prijzen Calculator -->
+    <section id="calculator">
+        <h2>Prijzen Calculator</h2>
+        <p>Bereken snel en eenvoudig de prijs voor alle types deuren die wij in ons assortiment hebben.</p>
+        <div class="placeholder-box">
+            <h3>[Calculator Placeholder]</h3>
+            <p>Hier bouwen we straks de invoervelden voor breedte, hoogte en deur-type om direct de prijs te berekenen.</p>
+        </div>
+    </section>
 
 </body>
 </html>
