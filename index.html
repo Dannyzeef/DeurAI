@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeurAI - Alles voor de Deuren Scene</title>
     <style>
-        /* CSS Variabelen geïnspireerd op De Deurzetter */
+        /* CSS Variabelen geïnspireerd op De Deurzetter (met een stijlvolle donkergroene touch) */
         :root {
             --primary-dark: #0f172a;    /* Diep antraciet */
             --secondary-dark: #1e293b;  /* Iets lichter antraciet voor kaarten */
-            --brand-orange: #f97316;    /* Deurzetter Oranje/Rood */
-            --brand-orange-hover: #ea580c;
+            --brand-green: #15803d;     /* Prachtig donkergroen */
+            --brand-green-hover: #166534; /* Iets dieper donkergroen */
             --bg-light: #f8fafc;        /* Frisse, lichte achtergrond */
             --text-dark: #0f172a;
             --text-muted: #64748b;
@@ -38,7 +38,7 @@
             width: 100%;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border-bottom: 3px solid var(--brand-orange);
+            border-bottom: 3px solid var(--brand-green);
         }
 
         nav {
@@ -59,7 +59,7 @@
         }
 
         .logo span {
-            color: var(--brand-orange);
+            color: var(--brand-green);
         }
 
         .nav-links {
@@ -87,7 +87,7 @@
         .nav-links a:hover, 
         .nav-links a.active {
             color: #ffffff;
-            background-color: var(--brand-orange);
+            background-color: var(--brand-green);
         }
 
         /* SPA Pagina Systeem */
@@ -173,7 +173,7 @@
         }
 
         .step-num {
-            background-color: var(--brand-orange);
+            background-color: var(--brand-green);
             color: white;
             border-radius: 50%;
             width: 28px;
@@ -205,14 +205,14 @@
         }
 
         .option-card:hover {
-            border-color: var(--brand-orange);
-            background: #fffaf7;
+            border-color: var(--brand-green);
+            background: #f0fdf4;
         }
 
         .option-card.selected {
-            border-color: var(--brand-orange);
-            background-color: #fff4ed;
-            box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.25);
+            border-color: var(--brand-green);
+            background-color: #f0fdf4;
+            box-shadow: 0 0 0 2px rgba(21, 128, 61, 0.25);
         }
 
         .option-name {
@@ -223,7 +223,7 @@
 
         .option-price {
             font-weight: 700;
-            color: var(--brand-orange);
+            color: var(--brand-green);
             font-size: 14px;
             white-space: nowrap;
         }
@@ -233,7 +233,7 @@
         }
 
         .option-badge {
-            background-color: var(--brand-orange);
+            background-color: var(--brand-green);
             color: white;
             font-size: 11px;
             font-weight: bold;
@@ -256,7 +256,7 @@
             align-items: center;
             margin-top: 40px;
             box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3);
-            border-left: 5px solid var(--brand-orange);
+            border-left: 5px solid var(--brand-green);
         }
 
         .total-label {
@@ -268,7 +268,7 @@
         .total-display {
             font-size: 30px;
             font-weight: 800;
-            color: var(--brand-orange);
+            color: var(--brand-green);
         }
 
         .hidden {
@@ -309,7 +309,7 @@
         }
 
         .copy-btn {
-            background-color: var(--brand-orange);
+            background-color: var(--brand-green);
             color: white;
             border: none;
             padding: 10px 20px;
@@ -321,7 +321,7 @@
         }
 
         .copy-btn:hover {
-            background-color: var(--brand-orange-hover);
+            background-color: var(--brand-green-hover);
         }
 
         .copy-success {
@@ -385,10 +385,58 @@
         <!-- Sectie 2: Kennisbank -->
         <section id="kennisbank" class="page-section">
             <h2>Kennisbank</h2>
-            <p class="section-desc">Vind hier snel alle handleidingen en documenten van Novoferm deuren en aandrijvingen.</p>
-            <div class="placeholder-box">
-                <h3>[Binnenkort beschikbaar]</h3>
-                <p>We zijn op dit moment bezig om alle PDF's en installatiehandleidingen netjes in te delen.</p>
+            <p class="section-desc">Direct online inzien en downloaden. Klik op een document om de PDF in een nieuw tabblad te openen.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                
+                <!-- Document 1: T100 -->
+                <div style="background: white; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 12px; text-transform: uppercase;">Besturing</span>
+                        <h3 style="margin: 10px 0 5px 0; color: var(--primary-dark); font-size: 18px;">Novoferm T100</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; margin: 0 0 20px 0;">Gebruikers- en montagehandleiding voor de T100 besturing (Nederlands).</p>
+                    </div>
+                    <a href="documenten/t100-nederlands.pdf" target="_blank" style="background-color: var(--brand-green); color: white; text-decoration: none; padding: 10px; text-align: center; border-radius: 6px; font-weight: bold; font-size: 14px; transition: background 0.2s; display: block;" onmouseover="this.style.backgroundColor='var(--brand-green-hover)'" onmouseout="this.style.backgroundColor='var(--brand-green)'">
+                        Open PDF ↗
+                    </a>
+                </div>
+
+                <!-- Document 2: DCC-80 -->
+                <div style="background: white; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 12px; text-transform: uppercase;">Docking</span>
+                        <h3 style="margin: 10px 0 5px 0; color: var(--primary-dark); font-size: 18px;">Novoferm DCC-80</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; margin: 0 0 20px 0;">Technische handleiding en schema's voor de DCC-80 docklevelerbesturing.</p>
+                    </div>
+                    <a href="documenten/dcc-80-nederlands.pdf" target="_blank" style="background-color: var(--brand-green); color: white; text-decoration: none; padding: 10px; text-align: center; border-radius: 6px; font-weight: bold; font-size: 14px; transition: background 0.2s; display: block;" onmouseover="this.style.backgroundColor='var(--brand-green-hover)'" onmouseout="this.style.backgroundColor='var(--brand-green)'">
+                        Open PDF ↗
+                    </a>
+                </div>
+
+                <!-- Document 3: IPD-S -->
+                <div style="background: white; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 12px; text-transform: uppercase;">Deuraandrijving</span>
+                        <h3 style="margin: 10px 0 5px 0; color: var(--primary-dark); font-size: 18px;">Novoferm IPD-S</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; margin: 0 0 20px 0;">Installatie-instructies en parameters voor de IPD-S aandrijving.</p>
+                    </div>
+                    <a href="documenten/ipd-s-nederlands.pdf" target="_blank" style="background-color: var(--brand-green); color: white; text-decoration: none; padding: 10px; text-align: center; border-radius: 6px; font-weight: bold; font-size: 14px; transition: background 0.2s; display: block;" onmouseover="this.style.backgroundColor='var(--brand-green-hover)'" onmouseout="this.style.backgroundColor='var(--brand-green)'">
+                        Open PDF ↗
+                    </a>
+                </div>
+
+                <!-- Document 4: TS971 -->
+                <div style="background: white; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 12px; text-transform: uppercase;">Besturing</span>
+                        <h3 style="margin: 10px 0 5px 0; color: var(--primary-dark); font-size: 18px;">GfA TS971</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; margin: 0 0 20px 0;">Uitgebreide handleiding voor de TS971 poortbesturing (Nederlands).</p>
+                    </div>
+                    <a href="documenten/ts971-nederlands.pdf" target="_blank" style="background-color: var(--brand-green); color: white; text-decoration: none; padding: 10px; text-align: center; border-radius: 6px; font-weight: bold; font-size: 14px; transition: background 0.2s; display: block;" onmouseover="this.style.backgroundColor='var(--brand-green-hover)'" onmouseout="this.style.backgroundColor='var(--brand-green)'">
+                        Open PDF ↗
+                    </a>
+                </div>
+
             </div>
         </section>
 
@@ -837,7 +885,7 @@
                             { label: "450 x 2.500 mm", price: 1783 },
                             { label: "450 x 2.600 mm", price: 1795 },
                             { label: "500 x 2.000 mm", price: 1687 },
-                            { label: "500 x 2.050 mm", price: 1711 },
+                            { label: "500 x 2.100 mm", price: 1711 },
                             { label: "500 x 2.100 mm", price: 1723 },
                             { label: "500 x 2.200 mm", price: 1735 },
                             { label: "500 x 2.300 mm", price: 1759 },
@@ -930,6 +978,7 @@
                             { label: "1.100 x 2.100 mm", price: 2049 },
                             { label: "1.100 x 2.200 mm", price: 2098 },
                             { label: "1.100 x 2.300 mm", price: 2135 },
+                            { label: "1.100 x 2.184 mm", price: 2184 },
                             { label: "1.100 x 2.400 mm", price: 2184 },
                             { label: "1.100 x 2.500 mm", price: 2221 },
                             { label: "1.100 x 2.600 mm", price: 2283 },
