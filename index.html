@@ -55,7 +55,7 @@
             justify-content: space-between;
             align-items: center;
             max-width: 1200px;
-            margin: 0 auto;
+ margin: 0 auto;
             padding: 15px 20px;
         }
 
@@ -674,6 +674,18 @@
                     </a>
                 </div>
 
+                <!-- Document 6: GfA TS959 -->
+                <div style="background: rgba(255, 255, 255, 0.95); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 12px; text-transform: uppercase;">Besturing</span>
+                        <h3 style="margin: 10px 0 5px 0; color: var(--primary-dark); font-size: 18px;">GfA TS959</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; margin: 0 0 20px 0;">Montage- en bedieningshandleiding voor de TS959 poortbesturing (Nederlands).</p>
+                    </div>
+                    <a href="documenten/ts959-nederlands.pdf" target="_blank" style="background-color: var(--brand-green); color: white; text-decoration: none; padding: 10px; text-align: center; border-radius: 6px; font-weight: bold; font-size: 14px; transition: background 0.2s; display: block;" onmouseover="this.style.backgroundColor='var(--brand-green-hover)'" onmouseout="this.style.backgroundColor='var(--brand-green)'">
+                        Open PDF ↗
+                    </a>
+                </div>
+
             </div>
         </section>
 
@@ -917,7 +929,7 @@
                 },
                 options: [
                     { id: "trekker_2z", name: "Trekker vertikaal (deurhoogte) 2-zijdig (K110-160-250-260)", price: 325 },
-                    { id: "ishape", name: "Model I-shape & G-shape (Inbegrepen in schuifdeur)", price: 187 },
+                    { id: "ishape", name: "Model I-shape & G-shape (Inbegreinen in schuifdeur)", price: 187 },
                     { id: "softclose", name: "Hydraulische softclose (per stuk)", price: 112 },
                     { id: "greep_k120", name: "K120 - K130 - K250 - K260 handgreep", price: 162 },
                     { id: "schuifsysteem", name: "Schuifsysteem", price: 375 },
@@ -940,14 +952,14 @@
                     enkele_deur: {
                         name: "Enkele Deur (Modern)",
                         dimensions: [
-                            { label: "≤ 800 x 2.000 mm", price: 2543 },
-                            { label: "≤ 800 x 2.050 mm", price: 2591 },
-                            { label: "≤ 800 x 2.100 mm", price: 2603 },
-                            { label: "≤ 800 x 2.200 mm", price: 2687 },
-                            { label: "≤ 800 x 2.300 mm", price: 2735 },
-                            { label: "≤ 800 x 2.400 mm", price: 2783 },
-                            { label: "≤ 800 x 2.500 mm", price: 2855 },
-                            { label: "≤ 800 x 2.600 mm", price: 2915 },
+                            { label: "800 x 2.000 mm", price: 2543 },
+                            { label: "800 x 2.050 mm", price: 2591 },
+                            { label: "800 x 2.100 mm", price: 2603 },
+                            { label: "800 x 2.200 mm", price: 2687 },
+                            { label: "800 x 2.300 mm", price: 2735 },
+                            { label: "800 x 2.400 mm", price: 2783 },
+                            { label: "800 x 2.500 mm", price: 2855 },
+                            { label: "800 x 2.600 mm", price: 2915 },
                             { label: "900 x 2.000 mm", price: 2579 },
                             { label: "900 x 2.050 mm", price: 2615 },
                             { label: "900 x 2.100 mm", price: 2627 },
@@ -1539,7 +1551,7 @@
                     <span class="option-name" style="text-align: left;">${gl.name}</span>
                     <span class="option-price ${gl.price === 0 ? 'free' : ''}">${gl.price === 0 ? 'Inbegrepen' : '+ € ' + gl.price}</span>
                 `;
-                glassContainer.appendChild(card);
+                glassContainer.appendChild(gl);
             });
         }
 
