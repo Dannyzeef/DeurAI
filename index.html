@@ -67,10 +67,12 @@
             display: flex;
             margin: 0;
             padding: 0;
+            align-items: center;
         }
 
         .nav-links li {
             margin-left: 15px;
+            position: relative; /* Belangrijk voor de positionering van de dropdown */
         }
 
         .nav-links a {
@@ -81,6 +83,7 @@
             padding: 8px 16px;
             border-radius: 6px;
             transition: all 0.2s ease;
+            display: block;
         }
 
         /* Actieve tab styling */
@@ -88,6 +91,63 @@
         .nav-links a.active {
             color: #ffffff;
             background-color: var(--brand-green);
+        }
+
+        /* ==================== NIEUW: DROPDOWN MENU STYLING ==================== */
+        .dropdown {
+            position: relative;
+        }
+
+        /* Het daadwerkelijke dropdown menu (standaard onzichtbaar) */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--primary-dark);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 6px;
+            padding: 8px 0;
+            list-style: none;
+            min-width: 260px;
+            margin: 5px 0 0 0;
+            z-index: 1001;
+            border: 1px solid var(--secondary-dark);
+            border-top: 3px solid var(--brand-green);
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+            padding: 0;
+            display: block;
+            width: 100%;
+        }
+
+        .dropdown-menu li a {
+            color: #94a3b8;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 0;
+            transition: all 0.15s ease;
+        }
+
+        /* Hover effect op de dropdown opties */
+        .dropdown-menu li a:hover {
+            color: #ffffff;
+            background-color: var(--brand-green);
+        }
+
+        /* Toon het menu zodra je over de hoofdlink "Calculator ▾" zweeft */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Styling voor items die nog niet beschikbaar zijn */
+        .dropdown-menu li a.disabled {
+            color: #475569 !important; /* Dofgrijze tekst */
+            cursor: not-allowed;
+            background-color: transparent !important;
         }
 
         /* SPA Pagina Systeem */
@@ -365,7 +425,17 @@
                 <li><a href="#" id="link-introductie" onclick="navigateTo('introductie')">Introductie</a></li>
                 <li><a href="#" id="link-kennisbank" onclick="navigateTo('kennisbank')">Kennisbank</a></li>
                 <li><a href="#" id="link-zoekfunctie" onclick="navigateTo('zoekfunctie')">DeurAI Zoeken</a></li>
-                <li><a href="#" id="link-calculator" onclick="navigateTo('calculator')">Calculator</a></li>
+                
+                <!-- DROPDOWN CALCULATORS -->
+                <li class="dropdown">
+                    <a href="#" id="link-calculator" onclick="navigateTo('calculator')">Calculator ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" onclick="navigateTo('calculator')">Calculator binnendeuren</a></li>
+                        <li><a href="#" class="disabled" onclick="return false;">Calculator sectionaaldeuren (Binnenkort)</a></li>
+                        <li><a href="#" class="disabled" onclick="return false;">Calculator Duoport (Binnenkort)</a></li>
+                        <li><a href="#" class="disabled" onclick="return false;">Calculator u-waarde (Binnenkort)</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
@@ -450,9 +520,9 @@
             </div>
         </section>
 
-        <!-- Sectie 4: Prijzen Calculator -->
+        <!-- Sectie 4: Prijzen Calculator (Binnendeuren) -->
         <section id="calculator" class="page-section">
-            <h2>Prijzen Calculator</h2>
+            <h2>Prijzen Calculator (Binnendeuren)</h2>
             <p class="section-desc">Novoferm All-in-One Interactieve Prijslijst (01-01-2026 t/m 30-06-2026)</p>
 
             <!-- STAP 1 -->
@@ -555,10 +625,13 @@
             }
 
             // 3. Update actieve tab in het menu
-            document.querySelectorAll('.nav-links a').forEach(link => {
+            document.querySelectorAll('.nav-links > li > a').forEach(link => {
                 link.classList.remove('active');
             });
-            const activeLink = document.getElementById(`link-${sectionId}`);
+            
+            // Als we naar calculator navigeren, zetten we de actieve status op de hoofdknop "Calculator"
+            const activeLinkId = (sectionId === 'calculator') ? 'link-calculator' : `link-${sectionId}`;
+            const activeLink = document.getElementById(activeLinkId);
             if (activeLink) {
                 activeLink.classList.add('active');
             }
@@ -761,6 +834,7 @@
                             { label: "700 x 2.200 mm", price: 1943 },
                             { label: "700 x 2.300 mm", price: 1991 },
                             { label: "700 x 2.400 mm", price: 2051 },
+                            { label: "700 x 2.087 mm", price: 2087 },
                             { label: "700 x 2.500 mm", price: 2087 },
                             { label: "700 x 2.600 mm", price: 2123 }
                         ]
@@ -983,6 +1057,7 @@
                             { label: "1.100 x 2.500 mm", price: 2221 },
                             { label: "1.100 x 2.600 mm", price: 2283 },
                             { label: "1.200 x 2.000 mm", price: 1962 },
+                            { label: "1.200 x 2.024 mm", price: 2024 },
                             { label: "1.200 x 2.050 mm", price: 2024 },
                             { label: "1.200 x 2.100 mm", price: 2073 },
                             { label: "1.200 x 2.200 mm", price: 2123 },
