@@ -497,6 +497,9 @@
                 flex-grow: 1;
                 justify-content: flex-start;
                 
+                /* FIX VOOR SAFARI IOS SAFARI BUG: */
+                min-width: 0; 
+                
                 /* Verberg de scrollbar voor een strakker uiterlijk */
                 scrollbar-width: none; 
             }
@@ -507,6 +510,8 @@
 
             .nav-links li {
                 margin-left: 5px;
+                /* FIX VOOR SAFARI: voorkom dat de links in elkaar klappen */
+                flex-shrink: 0; 
             }
 
             .nav-links a {
@@ -1086,7 +1091,7 @@
                             { label: "1.100 x 2.000 mm", price: 2979 },
                             { label: "1.100 x 2.050 mm", price: 3015 },
                             { label: "1.100 x 2.100 mm", price: 3027 },
-                            { label: "1.100 x 2.200 mm", price: 3051 },
+                            { label: "1.100 x 2.051 mm", price: 3051 },
                             { label: "1.100 x 2.300 mm", price: 3087 },
                             { label: "1.100 x 2.400 mm", price: 3111 },
                             { label: "1.100 x 2.500 mm", price: 3158 },
@@ -1211,7 +1216,7 @@
                             { label: "800 x 2.050 mm", price: 1888 },
                             { label: "800 x 2.100 mm", price: 1950 },
                             { label: "800 x 2.200 mm", price: 1999 },
-                            { label: "800 x 2.300 mm", price: 2049 },
+                            { label: "800 x 2.049 mm", price: 2049 },
                             { label: "800 x 2.098 mm", price: 2098 },
                             { label: "800 x 2.500 mm", price: 2135 },
                             { label: "800 x 2.600 mm", price: 2197 },
@@ -1235,8 +1240,8 @@
                             { label: "1.000 x 2.600 mm", price: 2258 },
                             { label: "1.100 x 2.000 mm", price: 1937 },
                             { label: "1.100 x 2.050 mm", price: 1987 },
-                            { label: "1.100 x 2.100 mm", price: 2049 },
-                            { label: "1.100 x 2.200 mm", price: 2098 },
+                            { label: "1.100 x 2.049 mm", price: 2049 },
+                            { label: "1.100 x 2.098 mm", price: 2098 },
                             { label: "1.100 x 2.300 mm", price: 2135 },
                             { label: "1.100 x 2.184 mm", price: 2184 },
                             { label: "1.100 x 2.400 mm", price: 2184 },
