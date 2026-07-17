@@ -31,8 +31,8 @@
             display: flex;
             flex-direction: column;
             
-            /* Achtergrondafbeelding config */
-            background-image: linear-gradient(rgba(248, 250, 252, 0.85), rgba(248, 250, 252, 0.85)), url('achtergrond.jpg');
+            /* Achtergrondafbeelding config (Aangepast naar 0.95 voor 10% minder transparantie) */
+            background-image: linear-gradient(rgba(248, 250, 252, 0.95), rgba(248, 250, 252, 0.95)), url('achtergrond.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -65,6 +65,7 @@
             font-weight: 800;
             text-decoration: none;
             letter-spacing: 1px;
+            flex-shrink: 0;
         }
 
         .logo span {
@@ -93,6 +94,7 @@
             border-radius: 6px;
             transition: all 0.2s ease;
             display: block;
+            white-space: nowrap;
         }
 
         /* Actieve tab styling */
@@ -102,10 +104,10 @@
             background-color: var(--brand-green);
         }
 
-        /* ==================== DROPDOWN MENU STYLING (GEOPTIMALISEERD) ==================== */
+        /* ==================== DROPDOWN MENU STYLING ==================== */
         .dropdown {
             position: relative;
-            padding-bottom: 10px; /* Zorgt voor een naadloze verbinding zodat het menu niet verdwijnt bij hoveren */
+            padding-bottom: 10px; /* Zorgt voor een naadloze verbinding */
             margin-bottom: -10px;
         }
 
@@ -149,7 +151,7 @@
             background-color: var(--brand-green);
         }
 
-        /* Toon het menu zodra je over de hoofdlink "Calculator" of de dropdown container zweeft */
+        /* Toon het menu zodra je over de dropdown container zweeft */
         .dropdown:hover .dropdown-menu {
             display: block;
         }
@@ -256,6 +258,7 @@
             justify-content: center;
             font-size: 14px;
             font-weight: bold;
+            flex-shrink: 0;
         }
 
         .grid-options {
@@ -275,6 +278,7 @@
             justify-content: space-between;
             align-items: center;
             user-select: none;
+            gap: 10px;
         }
 
         .option-card:hover {
@@ -330,6 +334,7 @@
             margin-top: 40px;
             box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3);
             border-left: 5px solid var(--brand-green);
+            z-index: 10;
         }
 
         .total-label {
@@ -372,6 +377,7 @@
             margin-bottom: 15px;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 12px;
+            gap: 10px;
         }
 
         .summary-title {
@@ -391,6 +397,7 @@
             font-size: 13px;
             cursor: pointer;
             transition: background-color 0.15s ease;
+            flex-shrink: 0;
         }
 
         .copy-btn:hover {
@@ -469,6 +476,92 @@
             color: var(--text-muted);
             margin: 0;
             letter-spacing: 0.5px;
+        }
+
+        /* ==================== MEDIA QUERIES VOOR MOBIEL EN INTERACTIEVE RESPONSIVENESS ==================== */
+        @media (max-width: 768px) {
+            /* Zorg dat de header niet buiten beeld valt en nav overdwars swipebaar is */
+            nav {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px 15px;
+                gap: 15px;
+            }
+
+            .nav-links {
+                display: flex;
+                overflow-x: auto; /* Maakt horizontaal scrollen mogelijk op mobiel */
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 5px;
+                gap: 5px;
+                flex-grow: 1;
+                justify-content: flex-start;
+                
+                /* Verberg de scrollbar voor een strakker uiterlijk */
+                scrollbar-width: none; 
+            }
+            
+            .nav-links::-webkit-scrollbar {
+                display: none; 
+            }
+
+            .nav-links li {
+                margin-left: 5px;
+            }
+
+            .nav-links a {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+
+            /* Dropdown optimalisatie voor mobiel swipe-menu (gedraagt zich nu als klik/bezoek-link om bugs te voorkomen) */
+            .dropdown:hover .dropdown-menu {
+                display: none; /* Schakel hover dropdown uit op mobiel om verwarring te voorkomen */
+            }
+
+            main {
+                margin-top: 70px;
+                padding: 20px 10px;
+            }
+
+            /* Forceer alle grids naar 1 kolom op mobiel */
+            .grid-options, 
+            div[style*="display: grid"] {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+
+            .calc-section {
+                padding: 15px;
+            }
+
+            .option-card {
+                padding: 12px 14px;
+            }
+
+            /* Totaalbalk aanpassen aan mobiel */
+            .total-bar {
+                padding: 15px;
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+
+            .total-label {
+                font-size: 15px;
+            }
+
+            .total-display {
+                font-size: 24px;
+            }
+
+            /* Verplaats de bezoekersteller op mobiel zodat hij niet over de content heen valt */
+            .visitor-counter-widget {
+                position: static;
+                margin: 20px auto 0 auto;
+                width: calc(100% - 40px);
+                box-sizing: border-box;
+            }
         }
     </style>
 </head>
@@ -1010,7 +1103,7 @@
                             { label: "1.300 x 2.050 mm", price: 3362 },
                             { label: "1.300 x 2.100 mm", price: 3386 },
                             { label: "1.300 x 2.200 mm", price: 3422 },
-                            { label: "1.300 x 2.300 mm", price: 3446 },
+                            { label: "1.300 x 2.446 mm", price: 3446 },
                             { label: "1.300 x 2.400 mm", price: 3493 },
                             { label: "1.300 x 2.500 mm", price: 3529 },
                             { label: "1.300 x 2.600 mm", price: 3553 },
@@ -1052,7 +1145,7 @@
                             { label: "450 x 2.500 mm", price: 1783 },
                             { label: "450 x 2.600 mm", price: 1795 },
                             { label: "500 x 2.000 mm", price: 1687 },
-                            { label: "500 x 2.100 mm", price: 1711 },
+                            { label: "500 x 2.050 mm", price: 1711 },
                             { label: "500 x 2.100 mm", price: 1723 },
                             { label: "500 x 2.200 mm", price: 1735 },
                             { label: "500 x 2.300 mm", price: 1759 },
@@ -1138,7 +1231,7 @@
                             { label: "1.000 x 2.200 mm", price: 2061 },
                             { label: "1.000 x 2.300 mm", price: 2110 },
                             { label: "1.000 x 2.400 mm", price: 2147 },
-                            { label: "1.000 x 2.500 mm", price: 2197 },
+                            { label: "1.000 x 2.197 mm", price: 2197 },
                             { label: "1.000 x 2.600 mm", price: 2258 },
                             { label: "1.100 x 2.000 mm", price: 1937 },
                             { label: "1.100 x 2.050 mm", price: 1987 },
@@ -1358,6 +1451,27 @@
             updateSummary();
         }
 
+        function handleMultiClickOption(element, price, id, name) {
+            let currentQty = selectedExtras[id] ? selectedExtras[id].quantity : 0;
+            if (currentQty < 5) currentQty++; else currentQty = 0;
+
+            const badgeHolder = element.querySelector('.badge-holder');
+
+            if (currentQty > 0) {
+                element.classList.add('selected');
+                selectedExtras[id] = { price, name, quantity: currentQty };
+                badgeHolder.innerHTML = currentQty > 1 ? `<span class="option-badge">${currentQty}x</span>` : '';
+            } else {
+                element.classList.remove('selected');
+                delete selectedExtras[id];
+                badgeHolder.innerHTML = '';
+            }
+            
+            configuration.optionsPrice = Object.values(selectedExtras).reduce((sum, val) => sum + (val.price * val.quantity), 0);
+            calculateTotal();
+            updateSummary();
+        }
+
         function loadExtraOptions() {
             const lineData = database[activeLine];
             
@@ -1371,7 +1485,7 @@
                 card.onclick = () => handleMultiClickOption(card, opt.price, opt.id, opt.name);
                 
                 card.innerHTML = `
-                    <span style="display: flex; align-items: center;">
+                    <span style="display: flex; align-items: center; text-align: left;">
                         <span class="option-name">${opt.name}</span>
                         <span class="badge-holder"></span>
                     </span>
@@ -1393,7 +1507,7 @@
                 }
                 card.onclick = () => selectColor(card, col.price, col.name);
                 card.innerHTML = `
-                    <span class="option-name">${col.name}</span>
+                    <span class="option-name" style="text-align: left;">${col.name}</span>
                     <span class="option-price ${col.price === 0 ? 'free' : ''}">${col.price === 0 ? 'Inbegrepen' : '+ € ' + col.price}</span>
                 `;
                 colorsContainer.appendChild(card);
@@ -1411,32 +1525,11 @@
                 }
                 card.onclick = () => selectGlass(card, gl.price, gl.name);
                 card.innerHTML = `
-                    <span class="option-name">${gl.name}</span>
+                    <span class="option-name" style="text-align: left;">${gl.name}</span>
                     <span class="option-price ${gl.price === 0 ? 'free' : ''}">${gl.price === 0 ? 'Inbegrepen' : '+ € ' + gl.price}</span>
                 `;
                 glassContainer.appendChild(card);
             });
-        }
-
-        function handleMultiClickOption(element, price, id, name) {
-            let currentQty = selectedExtras[id] ? selectedExtras[id].quantity : 0;
-            if (currentQty < 5) currentQty++; else currentQty = 0;
-
-            const badgeHolder = element.querySelector('.badge-holder');
-
-            if (currentQty > 0) {
-                element.classList.add('selected');
-                selectedExtras[id] = { price, name, quantity: currentQty };
-                badgeHolder.innerHTML = currentQty > 1 ? `<span class="option-badge">${currentQty}x</span>` : '';
-            } else {
-                element.classList.remove('selected');
-                delete selectedExtras[id];
-                badgeHolder.innerHTML = '';
-            }
-            
-            configuration.optionsPrice = Object.values(selectedExtras).reduce((sum, val) => sum + (val.price * val.quantity), 0);
-            calculateTotal();
-            updateSummary();
         }
 
         function selectColor(element, price, label) {
