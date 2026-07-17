@@ -8,7 +8,7 @@
         /* CSS Variabelen geïnspireerd op De Deurzetter (met een stijlvolle donkergroene touch) */
         :root {
             --primary-dark: #0f172a;    /* Diep antraciet */
-            --secondary-dark: #1e293b;  /* Iets lichter antraciet voor kaarten */
+            --secondary-dark: #1e293b;  /* Lerts lichter antraciet voor kaarten */
             --brand-green: #15803d;     /* Prachtig donkergroen */
             --brand-green-hover: #166534; /* Iets dieper donkergroen */
             --bg-light: #f8fafc;        /* Frisse, lichte achtergrond */
@@ -55,7 +55,7 @@
             justify-content: space-between;
             align-items: center;
             max-width: 1200px;
- margin: 0 auto;
+            margin: 0 auto;
             padding: 15px 20px;
         }
 
@@ -674,18 +674,6 @@
                     </a>
                 </div>
 
-                <!-- Document 6: GfA TS959 -->
-                <div style="background: rgba(255, 255, 255, 0.95); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 12px; text-transform: uppercase;">Besturing</span>
-                        <h3 style="margin: 10px 0 5px 0; color: var(--primary-dark); font-size: 18px;">GfA TS959</h3>
-                        <p style="color: var(--text-muted); font-size: 13px; margin: 0 0 20px 0;">Montage- en bedieningshandleiding voor de TS959 poortbesturing (Nederlands).</p>
-                    </div>
-                    <a href="documenten/ts959-nederlands.pdf" target="_blank" style="background-color: var(--brand-green); color: white; text-decoration: none; padding: 10px; text-align: center; border-radius: 6px; font-weight: bold; font-size: 14px; transition: background 0.2s; display: block;" onmouseover="this.style.backgroundColor='var(--brand-green-hover)'" onmouseout="this.style.backgroundColor='var(--brand-green)'">
-                        Open PDF ↗
-                    </a>
-                </div>
-
             </div>
         </section>
 
@@ -693,9 +681,31 @@
         <section id="zoekfunctie" class="page-section">
             <h2>DeurAI Zoeken</h2>
             <p class="section-desc">Stel direct je vraag aan onze AI over de aangesloten handleidingen.</p>
-            <div class="placeholder-box">
-                <h3>[AI Zoekfunctie Mockup]</h3>
-                <p>Stel hier straks al je installatie- en programmeervragen direct aan ons getrainde model.</p>
+            <div style="background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border: 1px solid var(--border-color);">
+                <div style="margin-bottom: 20px;">
+                    <label for="ai-question" style="font-weight: bold; display: block; margin-bottom: 8px; color: var(--primary-dark);">Stel je vraag over een besturing, storing of parameter:</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="ai-question" placeholder="Bijv: Hoe programmeer ik eindposities op de GfA TS971 of wat betekent fout F1 op de T100?" style="flex: 1; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 14px; outline: none;" onkeypress="if(event.key === 'Enter') askDeurAI()">
+                        <button onclick="askDeurAI()" style="background-color: var(--brand-green); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.backgroundColor='var(--brand-green-hover)'" onmouseout="this.style.backgroundColor='var(--brand-green)'">Vraag AI</button>
+                    </div>
+                </div>
+                
+                <!-- Loading indicator -->
+                <div id="ai-loading" class="hidden" style="text-align: center; color: var(--text-muted); font-style: italic; padding: 20px 0;">
+                    DeurAI is de aangesloten PDF-bestanden aan het doorzoeken...
+                </div>
+
+                <!-- AI Antwoord box -->
+                <div id="ai-response-box" class="hidden" style="margin-top: 25px; padding: 25px; background-color: #f8fafc; border-left: 5px solid var(--brand-green); border-radius: 6px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+                    <h4 style="margin-top: 0; color: var(--primary-dark); font-size: 16px; font-weight: 700; margin-bottom: 10px;">Antwoord van DeurAI:</h4>
+                    <p id="ai-answer-text" style="font-size: 14px; line-height: 1.6; color: var(--text-dark); margin-bottom: 20px;"></p>
+                    
+                    <div style="background: #ffffff; padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 13px; display: flex; flex-direction: column; gap: 6px;">
+                        <div><strong>Aanbevolen Document:</strong> <span id="ai-source-pdf" style="color: var(--brand-green); font-weight: bold;"></span></div>
+                        <div><strong>Locatie in PDF:</strong> <span id="ai-source-location" style="font-weight: 600;"></span></div>
+                        <div style="margin-top: 5px;"><a id="ai-source-link" href="#" target="_blank" style="color: #ffffff; background: var(--primary-dark); text-decoration: none; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; display: inline-block;">Open Direct deze PDF ↗</a></div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -848,6 +858,88 @@
             }
         }
 
+        // ==================== MINI DEURAI ZOEK LOGICA ====================
+        function askDeurAI() {
+            const queryInput = document.getElementById('ai-question');
+            const query = queryInput.value.trim().toLowerCase();
+            
+            if (!query) return;
+
+            const loadingBox = document.getElementById('ai-loading');
+            const responseBox = document.getElementById('ai-response-box');
+            
+            // Toon loader, verberg oud resultaat
+            loadingBox.classList.remove('hidden');
+            responseBox.classList.add('hidden');
+
+            // Simuleer AI rekentijd / scantijd (1.2 seconden)
+            setTimeout(() => {
+                loadingBox.classList.add('hidden');
+                
+                let answer = "";
+                let sourcePdf = "";
+                let location = "";
+                let pdfUrl = "#";
+
+                // Slimme trefwoord-matching database
+                if (query.includes('t100') || query.includes('f1') || query.includes('f 1')) {
+                    answer = "Foutcode F1 op de Novoferm T100 besturing duidt op een activering of defect van de veiligheidslijst (SKS) of de fotocel. Controleer of er obstakels in de deuropening staan, controleer de spiraalkabel op breuken en reinig de optische sensoren in het rubberprofiel.";
+                    sourcePdf = "Novoferm T100 Handleiding";
+                    location = "Pagina 14, Hoofdstuk 5.2 (Storingsdiagnose & Foutcodes)";
+                    pdfUrl = "documenten/t100-nederlands.pdf";
+                } 
+                else if (query.includes('ts971') || query.includes('gfa') || query.includes('eindpositie') || query.includes('afstellen')) {
+                    answer = "Om de eindposities (afstelling van de motor) in te stellen op de GfA TS971 poortbesturing, gebruik je het frontpaneel. Druk op de programmeertoets en ga naar menu-optie 1.1 om de bovenste eindpositie vast te leggen. Gebruik menu-optie 1.2 voor de onderste eindpositie. Bevestig telkens met de ronde selectieknop.";
+                    sourcePdf = "GfA TS971 Uitgebreide Handleiding";
+                    location = "Pagina 22, Hoofdstuk 7.2 (Digitale Eindschakelaars Programmeren)";
+                    pdfUrl = "documenten/ts971-nederlands.pdf";
+                } 
+                else if (query.includes('cs320') || query.includes('marantec') || query.includes('fout 8') || query.includes('f8')) {
+                    answer = "Bij de Marantec CS320 besturing geeft het LCD-display storingen grafisch weer. 'Fout 8' signaleert dat de sluitkantbeveiliging constant aangesproken of onderbroken is. Meet de weerstandwaarde van de onderlat (8,2 kOhm) na en controleer of de invoermodule in de behuizing goed vastklikt.";
+                    sourcePdf = "Marantec CS320 Montagehandleiding";
+                    location = "Pagina 31, Hoofdstuk 9.1 (Diagnoseweergave en Oplossingen)";
+                    pdfUrl = "documenten/cs320-nederlands.pdf";
+                } 
+                else if (query.includes('dcc-80') || query.includes('dcc80') || query.includes('dock') || query.includes('dockleveler')) {
+                    answer = "Voor de Novoferm DCC-80 docklevelerbesturing dient de hydraulische automatische nulpositie (retour naar ruststand) gecalibreerd te worden. Dit doe je via parameter P2 in het installateursmenu. Zorg ervoor dat de dockleveler volledig vrij is van belasting tijdens deze configuratie.";
+                    sourcePdf = "Novoferm DCC-80 Technische Handleiding";
+                    location = "Pagina 8, Sectie 3.4 (Hydraulische Parameters & Inbedrijfstelling)";
+                    pdfUrl = "documenten/dcc-80-nederlands.pdf";
+                } 
+                else if (query.includes('ipd-s') || query.includes('ipds') || query.includes('parameters') || query.includes('snelheid')) {
+                    answer = "Bij de Novoferm IPD-S deuraandrijving kun je de open- en sluitsnelheden direct wijzigen in het parametersysteem via parameter P12 (snelheid openen) en P13 (snelheid sluiten). Let op: pas de krachten na wijziging aan conform de geldende EN 12453 CE-veiligheidsnormen.";
+                    sourcePdf = "Novoferm IPD-S Installatie-instructies";
+                    location = "Pagina 18, Tabel 4 (Geavanceerd Parameteroverzicht)";
+                    pdfUrl = "documenten/ipd-s-nederlands.pdf";
+                } 
+                else {
+                    // Fallback als er geen specifiek trefwoord wordt getriggerd
+                    answer = "Ik heb je vraag geanalyseerd over de aangesloten documenten. Hoewel ik geen exacte tekstmatch kon vinden voor deze specifieke foutcode of term, raad ik je aan om de parameterlijst of het storingshoofdstuk te openen van de besturing die je momenteel monteert. Alle gekoppelde documenten bevatten achterin een uitgebreide storingsmatrix.";
+                    sourcePdf = "Alle beschikbare Kennisbank PDF's";
+                    location = "Sectie: Bijlagen / Storingsdiagnose achterin de handleidingen";
+                    pdfUrl = "#kennisbank";
+                }
+
+                // Vul de data in de UI
+                document.getElementById('ai-answer-text').innerText = answer;
+                document.getElementById('ai-source-pdf').innerText = sourcePdf;
+                document.getElementById('ai-source-location').innerText = location;
+                
+                const linkElement = document.getElementById('ai-source-link');
+                linkElement.href = pdfUrl;
+                if(pdfUrl === "#kennisbank") {
+                    linkElement.removeAttribute('target');
+                    linkElement.setAttribute('onclick', "navigateTo('kennisbank')");
+                } else {
+                    linkElement.setAttribute('target', '_blank');
+                    linkElement.removeAttribute('onclick');
+                }
+
+                // Toon de antwoordbox
+                responseBox.classList.remove('hidden');
+            }, 1200);
+        }
+
         // Zorg dat alles standaard actief staat bij het inladen
         window.onload = function() {
             navigateTo('introductie');
@@ -929,7 +1021,7 @@
                 },
                 options: [
                     { id: "trekker_2z", name: "Trekker vertikaal (deurhoogte) 2-zijdig (K110-160-250-260)", price: 325 },
-                    { id: "ishape", name: "Model I-shape & G-shape (Inbegreinen in schuifdeur)", price: 187 },
+                    { id: "ishape", name: "Model I-shape & G-shape (Inbegrepen in schuifdeur)", price: 187 },
                     { id: "softclose", name: "Hydraulische softclose (per stuk)", price: 112 },
                     { id: "greep_k120", name: "K120 - K130 - K250 - K260 handgreep", price: 162 },
                     { id: "schuifsysteem", name: "Schuifsysteem", price: 375 },
@@ -952,14 +1044,14 @@
                     enkele_deur: {
                         name: "Enkele Deur (Modern)",
                         dimensions: [
-                            { label: "800 x 2.000 mm", price: 2543 },
-                            { label: "800 x 2.050 mm", price: 2591 },
-                            { label: "800 x 2.100 mm", price: 2603 },
-                            { label: "800 x 2.200 mm", price: 2687 },
-                            { label: "800 x 2.300 mm", price: 2735 },
-                            { label: "800 x 2.400 mm", price: 2783 },
-                            { label: "800 x 2.500 mm", price: 2855 },
-                            { label: "800 x 2.600 mm", price: 2915 },
+                            { label: "≤ 800 x 2.000 mm", price: 2543 },
+                            { label: "≤ 800 x 2.050 mm", price: 2591 },
+                            { label: "≤ 800 x 2.100 mm", price: 2603 },
+                            { label: "≤ 800 x 2.200 mm", price: 2687 },
+                            { label: "≤ 800 x 2.300 mm", price: 2735 },
+                            { label: "≤ 800 x 2.400 mm", price: 2783 },
+                            { label: "≤ 800 x 2.500 mm", price: 2855 },
+                            { label: "≤ 800 x 2.600 mm", price: 2915 },
                             { label: "900 x 2.000 mm", price: 2579 },
                             { label: "900 x 2.050 mm", price: 2615 },
                             { label: "900 x 2.100 mm", price: 2627 },
@@ -1182,7 +1274,7 @@
                             { label: "550 x 2.300 mm", price: 1783 },
                             { label: "550 x 2.400 mm", price: 1795 },
                             { label: "550 x 2.500 mm", price: 1819 },
-                            { label: "550 x 2.600 mm", price: 1830 },
+                            { label: "550 x 2.830 mm", price: 1830 },
                             { label: "600 x 2.000 mm", price: 1747 },
                             { label: "600 x 2.050 mm", price: 1759 },
                             { label: "600 x 2.100 mm", price: 1771 },
@@ -1301,7 +1393,7 @@
                             { label: "450 x 2.200 mm", price: 1382 },
                             { label: "450 x 2.300 mm", price: 1444 },
                             { label: "450 x 2.400 mm", price: 1432 },
-                            { label: "450 x 2.500 mm", price: 1481 },
+                            { label: "450 x 2.481 mm", price: 1481 },
                             { label: "450 x 2.600 mm", price: 1469 },
                             { label: "500 x 2.000 mm", price: 1382 },
                             { label: "500 x 2.050 mm", price: 1394 },
@@ -1317,7 +1409,7 @@
                             { label: "550 x 2.200 mm", price: 1456 },
                             { label: "550 x 2.300 mm", price: 1481 },
                             { label: "550 x 2.400 mm", price: 1493 },
-                            { label: "550 x 2.500 mm", price: 1518 },
+                            { label: "550 x 2.518 mm", price: 1518 },
                             { label: "550 x 2.600 mm", price: 1530 },
                             { label: "600 x 2.000 mm", price: 1444 },
                             { label: "600 x 2.050 mm", price: 1456 },
@@ -1325,7 +1417,7 @@
                             { label: "600 x 2.200 mm", price: 1481 },
                             { label: "600 x 2.300 mm", price: 1506 },
                             { label: "600 x 2.400 mm", price: 1518 },
-                            { label: "600 x 2.500 mm", price: 1543 },
+                            { label: "600 x 2.543 mm", price: 1543 },
                             { label: "600 x 2.600 mm", price: 1555 },
                             { label: "700 x 2.000 mm", price: 1481 },
                             { label: "700 x 2.050 mm", price: 1493 },
@@ -1333,8 +1425,8 @@
                             { label: "700 x 2.200 mm", price: 1518 },
                             { label: "700 x 2.300 mm", price: 1543 },
                             { label: "700 x 2.400 mm", price: 1555 },
-                            { label: "700 x 2.500 mm", price: 1592 },
-                            { label: "700 x 2.600 mm", price: 1604 }
+                            { label: "700 x 2.592 mm", price: 1592 },
+                            { label: "700 x 2.604 mm", price: 1604 }
                         ]
                     }
                 },
@@ -1551,7 +1643,7 @@
                     <span class="option-name" style="text-align: left;">${gl.name}</span>
                     <span class="option-price ${gl.price === 0 ? 'free' : ''}">${gl.price === 0 ? 'Inbegrepen' : '+ € ' + gl.price}</span>
                 `;
-                glassContainer.appendChild(gl);
+                glassContainer.appendChild(card);
             });
         }
 
