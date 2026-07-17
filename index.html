@@ -15,6 +15,7 @@
             --text-dark: #0f172a;
             --text-muted: #64748b;
             --border-color: #cbd5e1;
+            --error-red: #ef4444;
         }
 
         /* Basis styling met semi-transparante achtergrondafbeelding */
@@ -434,6 +435,113 @@
             font-weight: bold;
         }
 
+        /* ==================== MODAL OVERLAY (WACHTWOORD POPUP) ==================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 3000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            border-top: 5px solid var(--brand-green);
+            animation: modalScale 0.25s ease-out;
+        }
+
+        @keyframes modalScale {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            color: var(--primary-dark);
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 4px;
+            font-weight: bold;
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            transition: border-color 0.2s;
+        }
+
+        .modal-input:focus {
+            border-color: var(--brand-green);
+        }
+
+        .modal-error {
+            color: var(--error-red);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            min-height: 20px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.15s;
+        }
+
+        .modal-btn-submit {
+            background-color: var(--brand-green);
+            color: white;
+        }
+
+        .modal-btn-submit:hover {
+            background-color: var(--brand-green-hover);
+        }
+
+        .modal-btn-cancel {
+            background-color: #e2e8f0;
+            color: var(--text-dark);
+        }
+
+        .modal-btn-cancel:hover {
+            background-color: #cbd5e1;
+        }
+
         /* ==================== FLOATING BEZOEKERSTELLER STYLING ==================== */
         .visitor-counter-widget {
             position: fixed;
@@ -572,6 +680,20 @@
 </head>
 <body>
 
+    <!-- Wachtwoord Popup Modaal Element -->
+    <div id="password-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3>Beveiligde toegang</h3>
+            <p>Voer de toegangscode in om de calculator te openen.</p>
+            <input type="password" id="modal-code-input" class="modal-input" placeholder="••••" maxlength="10" onkeypress="if(event.key === 'Enter') submitAccessCode()">
+            <div id="modal-error-msg" class="modal-error"></div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" onclick="closePasswordModal()">Annuleren</button>
+                <button class="modal-btn modal-btn-submit" onclick="submitAccessCode()">Verifieer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Navigatiebalk -->
     <header>
         <nav>
@@ -583,9 +705,9 @@
                 
                 <!-- DROPDOWN CALCULATORS -->
                 <li class="dropdown">
-                    <a href="#" id="link-calculator" onclick="navigateTo('calculator')">Calculator ▾</a>
+                    <a href="#" id="link-calculator" onclick="checkCalculatorAccess('calculator')">Calculator ▾</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" onclick="navigateTo('calculator')">Calculator binnendeuren</a></li>
+                        <li><a href="#" onclick="checkCalculatorAccess('calculator')">Calculator binnendeuren</a></li>
                         <li><a href="#" class="disabled" onclick="return false;">Calculator sectionaaldeuren (Binnenkort)</a></li>
                         <li><a href="#" class="disabled" onclick="return false;">Calculator Duoport (Binnenkort)</a></li>
                         <li><a href="#" class="disabled" onclick="return false;">Calculator u-waarde (Binnenkort)</a></li>
@@ -811,6 +933,54 @@
 
     <!-- JavaScript Logica en SPA Navigatie -->
     <script>
+        // State om bij te houden of de gebruiker al is geauthenticeerd
+        let hasCalculatorAccess = false;
+        let pendingSectionId = null;
+
+        // Controleert of de calculator beveiligd is en opent de popup indien nodig
+        function checkCalculatorAccess(sectionId) {
+            if (hasCalculatorAccess) {
+                navigateTo(sectionId);
+            } else {
+                pendingSectionId = sectionId;
+                openPasswordModal();
+            }
+        }
+
+        // Modaal openen en invoerveld leegmaken
+        function openPasswordModal() {
+            document.getElementById('password-modal').classList.remove('hidden');
+            const inputField = document.getElementById('modal-code-input');
+            inputField.value = '';
+            document.getElementById('modal-error-msg').innerText = '';
+            setTimeout(() => inputField.focus(), 50);
+        }
+
+        // Modaal handmatig sluiten
+        function closePasswordModal() {
+            document.getElementById('password-modal').classList.add('hidden');
+            pendingSectionId = null;
+        }
+
+        // Toegangscode verifiëren
+        function submitAccessCode() {
+            const codeInput = document.getElementById('modal-code-input').value.trim();
+            const errorElement = document.getElementById('modal-error-msg');
+            
+            if (codeInput === '5432') {
+                hasCalculatorAccess = true; // Toegang verlenen voor de huidige sessie
+                document.getElementById('password-modal').classList.add('hidden');
+                errorElement.innerText = '';
+                if (pendingSectionId) {
+                    navigateTo(pendingSectionId);
+                    pendingSectionId = null;
+                }
+            } else {
+                errorElement.innerText = 'foute code; geen toegang';
+                document.getElementById('modal-code-input').select();
+            }
+        }
+
         // SPA Navigatie Logica
         function navigateTo(sectionId) {
             // 1. Verberg alle pagina's en verwijder active-page klasse
@@ -996,7 +1166,7 @@
                             { label: "Breedte 1.100 mm | Hoogte 2.600 mm", price: 1937 },
                             { label: "Breedte 1.100 mm | Hoogte max. 2.800 mm", price: 2437 },
                             { label: "Breedte max 1.200 mm | Hoogte ≤ 2.200 mm", price: 2000 },
-                            { label: "Breedte max 1.200 mm | Hoogte 2.400 mm", price: 2062 },
+                            { label: "Breedte max 1.200 mm | Hoogte 2.600 mm", price: 2062 },
                             { label: "Breedte max 1.200 mm | Hoogte 2.600 mm", price: 2125 },
                             { label: "Breedte max 1.200 mm | Hoogte max. 2.800 mm", price: 2499 }
                         ]
@@ -1114,7 +1284,7 @@
                             { label: "500 x 2.500 mm", price: 1955 },
                             { label: "500 x 2.600 mm", price: 1991 },
                             { label: "550 x 2.000 mm", price: 1787 },
-                            { label: "550 x 2.050 mm", price: 1799 },
+                            { label: "550 x 2.095 mm", price: 1799 },
                             { label: "550 x 2.100 mm", price: 1823 },
                             { label: "550 x 2.200 mm", price: 1871 },
                             { label: "550 x 2.300 mm", price: 1907 },
@@ -1248,7 +1418,7 @@
                             { label: "400 x 2.100 mm", price: 1675 },
                             { label: "400 x 2.200 mm", price: 1687 },
                             { label: "400 x 2.300 mm", price: 1723 },
-                            { label: "400 x 2.400 mm", price: 1735 },
+                            { label: "400 x 2.345 mm", price: 1735 },
                             { label: "400 x 2.500 mm", price: 1759 },
                             { label: "400 x 2.600 mm", price: 1771 },
                             { label: "450 x 2.000 mm", price: 1675 },
@@ -1281,7 +1451,7 @@
                             { label: "600 x 2.200 mm", price: 1783 },
                             { label: "600 x 2.300 mm", price: 1807 },
                             { label: "600 x 2.400 mm", price: 1819 },
-                            { label: "600 x 2.500 mm", price: 1842 },
+                            { label: "600 x 2.542 mm", price: 1842 },
                             { label: "600 x 2.600 mm", price: 1866 },
                             { label: "700 x 2.000 mm", price: 1783 },
                             { label: "700 x 2.050 mm", price: 1795 },
