@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeurAI - Alles voor de Deuren Scene</title>
     <style>
-        /* CSS Variabelen voor de styling */
+        /* CSS Variabelen geïnspireerd op De Deurzetter */
         :root {
-            --primary-color: #1a1a1a;
-            --secondary-color: #ff5722; /* DeurAI Oranje */
-            --background-color: #f9f9f9;
-            --card-background: #ffffff;
-            --text-color: #333333;
-            --border-color: #e2e8f0;
+            --primary-dark: #0f172a;    /* Diep antraciet */
+            --secondary-dark: #1e293b;  /* Iets lichter antraciet voor kaarten */
+            --brand-orange: #f97316;    /* Deurzetter Oranje/Rood */
+            --brand-orange-hover: #ea580c;
+            --bg-light: #f8fafc;        /* Frisse, lichte achtergrond */
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
         }
 
         /* Basis styling */
@@ -21,19 +23,22 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            scroll-behavior: smooth; /* Zorgt voor soepel scrollen naar secties */
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* Navigatiebalk */
+        /* Navigatiebalk in Deurzetter stijl */
         header {
-            background-color: var(--primary-color);
+            background-color: var(--primary-dark);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-bottom: 3px solid var(--brand-orange);
         }
 
         nav {
@@ -46,10 +51,15 @@
         }
 
         .logo {
-            color: var(--secondary-color);
+            color: #ffffff;
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 800;
             text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--brand-orange);
         }
 
         .nav-links {
@@ -60,98 +70,114 @@
         }
 
         .nav-links li {
-            margin-left: 20px;
+            margin-left: 15px;
         }
 
         .nav-links a {
-            color: #fff;
+            color: #94a3b8;
             text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
         }
 
-        .nav-links a:hover {
-            color: var(--secondary-color);
+        /* Actieve tab styling */
+        .nav-links a:hover, 
+        .nav-links a.active {
+            color: #ffffff;
+            background-color: var(--brand-orange);
         }
 
-        /* Secties styling */
-        section {
-            padding: 100px 20px 80px 20px; /* Ruimte aan de bovenkant zodat het menu er niet overheen valt */
+        /* SPA Pagina Systeem */
+        main {
+            margin-top: 85px; /* Ruimte voor vaste header */
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+
+        /* Verberg niet-actieve pagina's volledig */
+        .page-section {
+            display: none;
+            width: 100%;
             max-width: 1100px;
-            margin: 0 auto;
-            min-height: 60vh; /* Zorgt dat elke sectie lekker de ruimte krijgt */
+            animation: fadeIn 0.3s ease-in-out;
         }
 
-        /* Alternerende achtergronden voor contrast */
-        section:nth-child(even) {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-top: 20px;
-            margin-bottom: 20px;
-            padding: 60px 40px;
+        /* Toon alleen de actieve pagina */
+        .page-section.active-page {
+            display: block;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Algemene Elementen */
         h2 {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--secondary-color);
-            padding-bottom: 10px;
-            display: inline-block;
+            color: var(--primary-dark);
+            font-size: 28px;
+            font-weight: 700;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
-        p {
-            line-height: 1.6;
-            font-size: 18px;
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 30px;
         }
 
-        /* Placeholders voor de functionele onderdelen */
+        /* Kennisbank & AI placeholders */
         .placeholder-box {
-            background-color: #f0f0f0;
-            border: 2px dashed #ccc;
-            padding: 40px;
+            background-color: #ffffff;
+            border: 2px dashed var(--border-color);
+            padding: 60px 40px;
             text-align: center;
-            border-radius: 8px;
-            color: #666;
-            margin-top: 20px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .placeholder-box h3 {
+            color: var(--primary-dark);
+            margin-top: 0;
         }
 
         /* ==================== CALCULATOR STYLING ==================== */
-        .calc-subtitle {
-            color: #64748b;
-            margin: -10px 0 25px 0;
-            font-size: 14px;
-        }
-
         .calc-section {
             margin-bottom: 25px;
-            padding: 20px;
+            padding: 25px;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background-color: #fff;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
         }
 
         .calc-section-title {
             font-size: 18px;
-            font-weight: bold;
-            color: var(--primary-color);
+            font-weight: 700;
+            color: var(--primary-dark);
             margin-top: 0;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .step-num {
-            background-color: var(--secondary-color);
+            background-color: var(--brand-orange);
             color: white;
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -161,89 +187,88 @@
 
         .grid-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
         }
 
         .option-card {
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 14px 16px;
+            border-radius: 8px;
+            padding: 16px 18px;
             cursor: pointer;
-            transition: all 0.15s ease;
-            background: #fdfdfd;
+            transition: all 0.2s ease;
+            background: #ffffff;
             display: flex;
             justify-content: space-between;
             align-items: center;
             user-select: none;
-            position: relative;
         }
 
         .option-card:hover {
-            border-color: #cbd5e1;
-            background: #f1f5f9;
+            border-color: var(--brand-orange);
+            background: #fffaf7;
         }
 
         .option-card.selected {
-            border-color: var(--secondary-color);
-            background-color: #fff8f5;
-            box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.2);
+            border-color: var(--brand-orange);
+            background-color: #fff4ed;
+            box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.25);
         }
 
         .option-name {
-            font-weight: 500;
+            font-weight: 600;
             font-size: 14px;
-            line-height: 1.3;
+            color: var(--primary-dark);
         }
 
         .option-price {
-            font-weight: bold;
-            color: var(--secondary-color);
+            font-weight: 700;
+            color: var(--brand-orange);
             font-size: 14px;
             white-space: nowrap;
-            margin-left: 10px;
         }
 
         .option-price.free {
             color: #16a34a;
         }
 
-        /* Badge voor vermenigvuldiger */
         .option-badge {
-            background-color: var(--secondary-color);
+            background-color: var(--brand-orange);
             color: white;
             font-size: 11px;
             font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 10px;
-            margin-left: 6px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
             display: inline-block;
         }
 
+        /* Totaalbalk onderaan */
         .total-bar {
             position: sticky;
             bottom: 20px;
-            background: var(--primary-color);
+            background: var(--primary-dark);
             color: white;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 20px 30px;
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 40px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            z-index: 100;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3);
+            border-left: 5px solid var(--brand-orange);
         }
 
         .total-label {
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
-        .total-price {
-            font-size: 32px;
+        .total-display {
+            font-size: 30px;
             font-weight: 800;
-            color: var(--secondary-color);
+            color: var(--brand-orange);
         }
 
         .hidden {
@@ -252,18 +277,19 @@
 
         .info-text {
             font-size: 13px;
-            color: #64748b;
-            margin-top: 12px;
-            line-height: 1.4;
+            color: var(--text-muted);
+            margin-top: 15px;
+            font-style: italic;
         }
 
-        /* Styling voor optielijst en kopieerknop */
+        /* Samenvatting */
         .summary-section {
-            margin-top: 25px;
-            padding: 20px;
+            margin-top: 30px;
+            padding: 25px;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background-color: #f8fafc;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
         }
 
         .summary-header {
@@ -271,38 +297,31 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
         }
 
         .summary-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-dark);
             margin: 0;
         }
 
         .copy-btn {
-            background-color: var(--secondary-color);
+            background-color: var(--brand-orange);
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 700;
             font-size: 13px;
             cursor: pointer;
             transition: background-color 0.15s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .copy-btn:hover {
-            background-color: #e04a1b;
-        }
-
-        .copy-btn:active {
-            transform: scale(0.98);
+            background-color: var(--brand-orange-hover);
         }
 
         .copy-success {
@@ -316,13 +335,13 @@
         }
 
         .selected-options-list li {
-            padding: 8px 0;
+            padding: 10px 0;
             font-size: 14px;
-            color: var(--text-color);
-            border-bottom: 1px dashed #e2e8f0;
+            color: var(--text-dark);
+            border-bottom: 1px solid #f1f5f9;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .selected-options-list li:last-child {
@@ -338,148 +357,174 @@
 </head>
 <body>
 
-    <!-- Navigatiebalk bovenaan -->
+    <!-- Navigatiebalk -->
     <header>
         <nav>
-            <a href="#introductie" class="logo">DeurAI</a>
+            <a href="#" class="logo" onclick="navigateTo('introductie')">Deur<span>AI</span></a>
             <ul class="nav-links">
-                <li><a href="#introductie">Introductie</a></li>
-                <li><a href="#kennisbank">Kennisbank</a></li>
-                <li><a href="#zoekfunctie">DeurAI Zoeken</a></li>
-                <li><a href="#calculator">Calculator</a></li>
+                <li><a href="#" id="link-introductie" onclick="navigateTo('introductie')">Introductie</a></li>
+                <li><a href="#" id="link-kennisbank" onclick="navigateTo('kennisbank')">Kennisbank</a></li>
+                <li><a href="#" id="link-zoekfunctie" onclick="navigateTo('zoekfunctie')">DeurAI Zoeken</a></li>
+                <li><a href="#" id="link-calculator" onclick="navigateTo('calculator')">Calculator</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Sectie 1: Introductie -->
-    <section id="introductie">
-        <h2>Introductie</h2>
-        <p>Welkom bij DeurAI! Deze website is bedoeld als hulp en ondersteuning voor iedereen in de Deuren Scene. Of je nu een monteur bent, een verkoper, of gewoon op zoek bent naar de juiste informatie: hier vind je antwoorden op je vragen en handige tools om je werk makkelijker te maken.</p>
-    </section>
+    <!-- Content van de website -->
+    <main>
 
-    <!-- Sectie 2: Kennisbank -->
-    <section id="kennisbank">
-        <h2>Kennisbank</h2>
-        <p>In deze kennisbank vind je na verloop van tijd alle handleidingen en technische documentatie die wij bezitten. Alles overzichtelijk op één plek.</p>
-        <div class="placeholder-box">
-            <h3>[Binnenkort beschikbaar]</h3>
-            <p>Hier komen de categorieën en links naar de PDF-handleidingen te staan.</p>
-        </div>
-    </section>
-
-    <!-- Sectie 3: DeurAI Zoekfunctie -->
-    <section id="zoekfunctie">
-        <h2>DeurAI Zoeken (Lichte AI)</h2>
-        <p>Stel hier straks je vraag en onze AI-assistent zoekt direct het juiste antwoord voor je op in alle geüploade handleidingen.</p>
-        <div class="placeholder-box">
-            <h3>[AI Zoekfunctie Placeholder]</h3>
-            <p>Hier komt de chat-interface waarin je vragen kunt stellen aan de handleidingen database.</p>
-        </div>
-    </section>
-
-    <!-- Sectie 4: Prijzen Calculator -->
-    <section id="calculator">
-        <h2>Prijzen Calculator</h2>
-        <p class="calc-subtitle">Novoferm All-in-One Interactieve Prijslijst (Geldigheidsduur: 01-01-2026 t/m 30-06-2026)</p>
-
-        <!-- STAP 1: Selecteer de Productlijn -->
-        <div class="calc-section">
-            <div class="calc-section-title">
-                <span class="step-num">1</span> Kies Productlijn
+        <!-- Sectie 1: Introductie -->
+        <section id="introductie" class="page-section active-page">
+            <h2>Introductie</h2>
+            <p class="section-desc">Welkom bij DeurAI! Deze website is ontworpen om monteurs, verkopers en liefhebbers in de deurenbranche direct van de juiste tools en informatie te voorzien.</p>
+            <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); border: 1px solid var(--border-color);">
+                <p>Navigeer via het menu hierboven direct naar de **Prijzen Calculator** of hou onze **Kennisbank** in de gaten voor alle technische documenten en updates.</p>
             </div>
-            <div class="grid-options">
-                <div class="option-card product-line-card" onclick="selectProductLine('economy', this)">
-                    <span class="option-name">Novoferm Economy</span>
-                    <span class="option-price">Vanaf € 1.125</span>
+        </section>
+
+        <!-- Sectie 2: Kennisbank -->
+        <section id="kennisbank" class="page-section">
+            <h2>Kennisbank</h2>
+            <p class="section-desc">Vind hier snel alle handleidingen en documenten van Novoferm deuren en aandrijvingen.</p>
+            <div class="placeholder-box">
+                <h3>[Binnenkort beschikbaar]</h3>
+                <p>We zijn op dit moment bezig om alle PDF's en installatiehandleidingen netjes in te delen.</p>
+            </div>
+        </section>
+
+        <!-- Sectie 3: DeurAI Zoekfunctie -->
+        <section id="zoekfunctie" class="page-section">
+            <h2>DeurAI Zoeken</h2>
+            <p class="section-desc">Stel direct je vraag aan onze AI over de aangesloten handleidingen.</p>
+            <div class="placeholder-box">
+                <h3>[AI Zoekfunctie Mockup]</h3>
+                <p>Stel hier straks al je installatie- en programmeervragen direct aan ons getrainde model.</p>
+            </div>
+        </section>
+
+        <!-- Sectie 4: Prijzen Calculator -->
+        <section id="calculator" class="page-section">
+            <h2>Prijzen Calculator</h2>
+            <p class="section-desc">Novoferm All-in-One Interactieve Prijslijst (01-01-2026 t/m 30-06-2026)</p>
+
+            <!-- STAP 1 -->
+            <div class="calc-section">
+                <div class="calc-section-title">
+                    <span class="step-num">1</span> Kies Productlijn
                 </div>
-                <div class="option-card product-line-card" onclick="selectProductLine('modern', this)">
-                    <span class="option-name">Bruto Pricelist Modern</span>
-                    <span class="option-price">Vanaf € 1.655</span>
+                <div class="grid-options">
+                    <div class="option-card product-line-card" onclick="selectProductLine('economy', this)">
+                        <span class="option-name">Novoferm Economy</span>
+                        <span class="option-price">Vanaf € 1.125</span>
+                    </div>
+                    <div class="option-card product-line-card" onclick="selectProductLine('modern', this)">
+                        <span class="option-name">Bruto Pricelist Modern</span>
+                        <span class="option-price">Vanaf € 1.655</span>
+                    </div>
+                    <div class="option-card product-line-card" onclick="selectProductLine('pivot40', this)">
+                        <span class="option-name">Pivot 40 Line</span>
+                        <span class="option-price">Vanaf € 1.603</span>
+                    </div>
+                    <div class="option-card product-line-card" onclick="selectProductLine('line40', this)">
+                        <span class="option-name">40 Line (Standaard)</span>
+                        <span class="option-price">Vanaf € 1.308</span>
+                    </div>
                 </div>
-                <div class="option-card product-line-card" onclick="selectProductLine('pivot40', this)">
-                    <span class="option-name">Pivot 40 Line</span>
-                    <span class="option-price">Vanaf € 1.603</span>
+            </div>
+
+            <!-- STAP 2 -->
+            <div id="door-type-section" class="calc-section hidden">
+                <div class="calc-section-title">
+                    <span class="step-num">2</span> Kies type Deur / Uitvoering
                 </div>
-                <div class="option-card product-line-card" onclick="selectProductLine('line40', this)">
-                    <span class="option-name">40 Line (Standaard)</span>
-                    <span class="option-price">Vanaf € 1.308</span>
+                <div class="grid-options" id="door-type-options"></div>
+            </div>
+
+            <!-- STAP 3 -->
+            <div id="matrix-section" class="calc-section hidden">
+                <div class="calc-section-title" id="matrix-title">
+                    <span class="step-num">3</span> Kies Afmetingen
                 </div>
+                <div class="grid-options" id="matrix-options"></div>
             </div>
-        </div>
 
-        <!-- STAP 2: Deurtype (Dynamisch op basis van productlijn) -->
-        <div id="door-type-section" class="calc-section hidden">
-            <div class="calc-section-title">
-                <span class="step-num">2</span> Kies type Deur / Uitvoering
+            <!-- STAP 4 -->
+            <div id="options-section" class="calc-section hidden">
+                <div class="calc-section-title">
+                    <span class="step-num">4</span> Opties & Uitvoering
+                </div>
+                <div class="grid-options" id="dynamic-options"></div>
+                <div id="options-info" class="info-text"></div>
             </div>
-            <div class="grid-options" id="door-type-options">
-                <!-- Dynamisch gevuld -->
-            </div>
-        </div>
 
-        <!-- STAP 3: Maatvoering (Dynamisch op basis van Deurtype) -->
-        <div id="matrix-section" class="calc-section hidden">
-            <div class="calc-section-title" id="matrix-title">
-                <span class="step-num">3</span> Kies Afmetingen
+            <!-- STAP 5 -->
+            <div id="colors-section" class="calc-section hidden">
+                <div class="calc-section-title">
+                    <span class="step-num">5</span> Kleurafwerking
+                </div>
+                <div class="grid-options" id="dynamic-colors"></div>
             </div>
-            <div class="grid-options" id="matrix-options">
-                <!-- Dynamisch gevuld -->
-            </div>
-        </div>
 
-        <!-- STAP 4: Opties & Beslag (Dynamisch op basis van productlijn) -->
-        <div id="options-section" class="calc-section hidden">
-            <div class="calc-section-title">
-                <span class="step-num">4</span> Opties & Uitvoering <span style="font-size: 12px; font-weight: normal; margin-left: 10px; color: #64748b;">(Klik vaker om te vermenigvuldigen, max. 5x)</span>
+            <!-- STAP 6 -->
+            <div id="glass-section" class="calc-section hidden">
+                <div class="calc-section-title">
+                    <span class="step-num">6</span> Glas & Roeden
+                </div>
+                <div class="grid-options" id="dynamic-glass"></div>
             </div>
-            <div class="grid-options" id="dynamic-options">
-                <!-- Dynamisch gevuld -->
-            </div>
-            <div id="options-info" class="info-text"></div>
-        </div>
 
-        <!-- STAP 5: Kleuren (Dynamisch op basis van productlijn) -->
-        <div id="colors-section" class="calc-section hidden">
-            <div class="calc-section-title">
-                <span class="step-num">5</span> Kleurafwerking
+            <!-- TOTAALBALK -->
+            <div class="total-bar">
+                <span class="total-label">TOTAALPRIJS (BRUTO):</span>
+                <span class="total-display" id="total-display">€ 0,-</span>
             </div>
-            <div class="grid-options" id="dynamic-colors">
-                <!-- Dynamisch gevuld -->
-            </div>
-        </div>
 
-        <!-- STAP 6: Glas (Dynamisch op basis van productlijn) -->
-        <div id="glass-section" class="calc-section hidden">
-            <div class="calc-section-title">
-                <span class="step-num">6</span> Glas & Roeden
+            <!-- SAMENVATTING -->
+            <div id="summary-container" class="summary-section hidden">
+                <div class="summary-header">
+                    <h3 class="summary-title">Geselecteerde configuratie & opties:</h3>
+                    <button class="copy-btn" id="copy-btn" onclick="copyOptionsToClipboard()">Kopieer lijst</button>
+                </div>
+                <ul id="selected-options-list" class="selected-options-list"></ul>
             </div>
-            <div class="grid-options" id="dynamic-glass">
-                <!-- Dynamisch gevuld -->
-            </div>
-        </div>
+        </section>
 
-        <!-- TOTAALBALK -->
-        <div class="total-bar">
-            <span class="total-label">Totaalprijs (Bruto):</span>
-            <span class="total-price" id="total-display">€ 0,-</span>
-        </div>
+    </main>
 
-        <!-- SAMENVATTING MET GEKOZEN OPTIES -->
-        <div id="summary-container" class="summary-section hidden">
-            <div class="summary-header">
-                <h3 class="summary-title">Geselecteerde configuratie & opties:</h3>
-                <button class="copy-btn" id="copy-btn" onclick="copyOptionsToClipboard()">
-                    Kopieer lijst
-                </button>
-            </div>
-            <ul id="selected-options-list" class="selected-options-list">
-                <!-- Dynamisch gevuld -->
-            </ul>
-        </div>
-    </section>
-
-    <!-- JavaScript Logica uit jouw bestand -->
+    <!-- JavaScript Logica en SPA Navigatie -->
     <script>
+        // SPA Navigatie Logica
+        function navigateTo(sectionId) {
+            // 1. Verberg alle pagina's en verwijder active-page klasse
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active-page');
+            });
+
+            // 2. Toon de geselecteerde pagina
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active-page');
+            }
+
+            // 3. Update actieve tab in het menu
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeLink = document.getElementById(`link-${sectionId}`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Scroll naar boven bij het wisselen van pagina
+            window.scrollTo(0, 0);
+        }
+
+        // Zorg dat de introductie standaard actief staat bij het inladen
+        window.onload = function() {
+            navigateTo('introductie');
+        };
+
+        // DATABASE EN BEREKENINGS-LOGICA (ONGEMOEID EN COMPLEET)
         const database = {
             economy: {
                 doors: {
@@ -585,7 +630,6 @@
                             { label: "≤ 800 x 2.400 mm", price: 2783 },
                             { label: "≤ 800 x 2.500 mm", price: 2855 },
                             { label: "≤ 800 x 2.600 mm", price: 2915 },
-
                             { label: "900 x 2.000 mm", price: 2579 },
                             { label: "900 x 2.050 mm", price: 2615 },
                             { label: "900 x 2.100 mm", price: 2627 },
@@ -594,7 +638,6 @@
                             { label: "900 x 2.400 mm", price: 2807 },
                             { label: "900 x 2.500 mm", price: 2891 },
                             { label: "900 x 2.600 mm", price: 2939 },
-
                             { label: "1.000 x 2.000 mm", price: 2615 },
                             { label: "1.000 x 2.050 mm", price: 2639 },
                             { label: "1.000 x 2.100 mm", price: 2687 },
@@ -603,7 +646,6 @@
                             { label: "1.000 x 2.400 mm", price: 2879 },
                             { label: "1.000 x 2.500 mm", price: 2939 },
                             { label: "1.000 x 2.600 mm", price: 2987 },
-
                             { label: "1.100 x 2.000 mm", price: 2711 },
                             { label: "1.100 x 2.050 mm", price: 2735 },
                             { label: "1.100 x 2.100 mm", price: 2759 },
@@ -625,7 +667,6 @@
                             { label: "≤ 300 x 2.400 mm", price: 1799 },
                             { label: "≤ 300 x 2.500 mm", price: 1835 },
                             { label: "≤ 300 x 2.600 mm", price: 1943 },
-
                             { label: "400 x 2.000 mm", price: 1715 },
                             { label: "400 x 2.050 mm", price: 1727 },
                             { label: "400 x 2.100 mm", price: 1751 },
@@ -634,7 +675,6 @@
                             { label: "400 x 2.400 mm", price: 1871 },
                             { label: "400 x 2.500 mm", price: 1907 },
                             { label: "400 x 2.600 mm", price: 1883 },
-
                             { label: "450 x 2.000 mm", price: 1739 },
                             { label: "450 x 2.050 mm", price: 1751 },
                             { label: "450 x 2.100 mm", price: 1775 },
@@ -643,7 +683,6 @@
                             { label: "450 x 2.400 mm", price: 1895 },
                             { label: "450 x 2.500 mm", price: 1931 },
                             { label: "450 x 2.600 mm", price: 1967 },
-
                             { label: "500 x 2.000 mm", price: 1763 },
                             { label: "500 x 2.050 mm", price: 1775 },
                             { label: "500 x 2.100 mm", price: 1799 },
@@ -652,7 +691,6 @@
                             { label: "500 x 2.400 mm", price: 1919 },
                             { label: "500 x 2.500 mm", price: 1955 },
                             { label: "500 x 2.600 mm", price: 1991 },
-
                             { label: "550 x 2.000 mm", price: 1787 },
                             { label: "550 x 2.050 mm", price: 1799 },
                             { label: "550 x 2.100 mm", price: 1823 },
@@ -661,7 +699,6 @@
                             { label: "550 x 2.400 mm", price: 1955 },
                             { label: "550 x 2.500 mm", price: 1991 },
                             { label: "550 x 2.600 mm", price: 2039 },
-
                             { label: "600 x 2.000 mm", price: 1811 },
                             { label: "600 x 2.050 mm", price: 1823 },
                             { label: "600 x 2.100 mm", price: 1847 },
@@ -670,7 +707,6 @@
                             { label: "600 x 2.400 mm", price: 1991 },
                             { label: "600 x 2.500 mm", price: 2039 },
                             { label: "600 x 2.600 mm", price: 2063 },
-
                             { label: "700 x 2.000 mm", price: 1871 },
                             { label: "700 x 2.050 mm", price: 1883 },
                             { label: "700 x 2.100 mm", price: 1907 },
@@ -723,7 +759,6 @@
                             { label: "800 x 2.400 mm", price: 2943 },
                             { label: "800 x 2.500 mm", price: 2967 },
                             { label: "800 x 2.600 mm", price: 3003 },
-
                             { label: "900 x 2.000 mm", price: 2883 },
                             { label: "900 x 2.050 mm", price: 2907 },
                             { label: "900 x 2.100 mm", price: 2919 },
@@ -732,7 +767,6 @@
                             { label: "900 x 2.400 mm", price: 3003 },
                             { label: "900 x 2.500 mm", price: 3027 },
                             { label: "900 x 2.600 mm", price: 3063 },
-
                             { label: "1.000 x 2.000 mm", price: 2931 },
                             { label: "1.000 x 2.050 mm", price: 2955 },
                             { label: "1.000 x 2.100 mm", price: 2967 },
@@ -741,7 +775,6 @@
                             { label: "1.000 x 2.400 mm", price: 3063 },
                             { label: "1.000 x 2.500 mm", price: 3087 },
                             { label: "1.000 x 2.600 mm", price: 3123 },
-
                             { label: "1.100 x 2.000 mm", price: 2979 },
                             { label: "1.100 x 2.050 mm", price: 3015 },
                             { label: "1.100 x 2.100 mm", price: 3027 },
@@ -750,7 +783,6 @@
                             { label: "1.100 x 2.400 mm", price: 3111 },
                             { label: "1.100 x 2.500 mm", price: 3158 },
                             { label: "1.100 x 2.600 mm", price: 3182 },
-
                             { label: "1.200 x 2.000 mm", price: 3290 },
                             { label: "1.200 x 2.050 mm", price: 3326 },
                             { label: "1.200 x 2.100 mm", price: 3338 },
@@ -759,7 +791,6 @@
                             { label: "1.200 x 2.400 mm", price: 3434 },
                             { label: "1.200 x 2.500 mm", price: 3458 },
                             { label: "1.200 x 2.600 mm", price: 3505 },
-
                             { label: "1.300 x 2.000 mm", price: 3350 },
                             { label: "1.300 x 2.050 mm", price: 3362 },
                             { label: "1.300 x 2.100 mm", price: 3386 },
@@ -768,7 +799,6 @@
                             { label: "1.300 x 2.400 mm", price: 3493 },
                             { label: "1.300 x 2.500 mm", price: 3529 },
                             { label: "1.300 x 2.600 mm", price: 3553 },
-
                             { label: "1.400 x 2.000 mm", price: 3398 },
                             { label: "1.400 x 2.050 mm", price: 3422 },
                             { label: "1.400 x 2.100 mm", price: 3434 },
@@ -790,7 +820,6 @@
                             { label: "≤ 300 x 2.400 mm", price: 1675 },
                             { label: "≤ 300 x 2.500 mm", price: 1711 },
                             { label: "≤ 300 x 2.600 mm", price: 1723 },
-
                             { label: "400 x 2.000 mm", price: 1651 },
                             { label: "400 x 2.050 mm", price: 1663 },
                             { label: "400 x 2.100 mm", price: 1675 },
@@ -799,7 +828,6 @@
                             { label: "400 x 2.400 mm", price: 1735 },
                             { label: "400 x 2.500 mm", price: 1759 },
                             { label: "400 x 2.600 mm", price: 1771 },
-
                             { label: "450 x 2.000 mm", price: 1675 },
                             { label: "450 x 2.050 mm", price: 1687 },
                             { label: "450 x 2.100 mm", price: 1711 },
@@ -808,7 +836,6 @@
                             { label: "450 x 2.400 mm", price: 1759 },
                             { label: "450 x 2.500 mm", price: 1783 },
                             { label: "450 x 2.600 mm", price: 1795 },
-
                             { label: "500 x 2.000 mm", price: 1687 },
                             { label: "500 x 2.050 mm", price: 1711 },
                             { label: "500 x 2.100 mm", price: 1723 },
@@ -817,7 +844,6 @@
                             { label: "500 x 2.400 mm", price: 1771 },
                             { label: "500 x 2.500 mm", price: 1795 },
                             { label: "500 x 2.600 mm", price: 1807 },
-
                             { label: "550 x 2.000 mm", price: 1723 },
                             { label: "550 x 2.050 mm", price: 1735 },
                             { label: "550 x 2.100 mm", price: 1747 },
@@ -826,7 +852,6 @@
                             { label: "550 x 2.400 mm", price: 1795 },
                             { label: "550 x 2.500 mm", price: 1819 },
                             { label: "550 x 2.600 mm", price: 1830 },
-
                             { label: "600 x 2.000 mm", price: 1747 },
                             { label: "600 x 2.050 mm", price: 1759 },
                             { label: "600 x 2.100 mm", price: 1771 },
@@ -835,7 +860,6 @@
                             { label: "600 x 2.400 mm", price: 1819 },
                             { label: "600 x 2.500 mm", price: 1842 },
                             { label: "600 x 2.600 mm", price: 1866 },
-
                             { label: "700 x 2.000 mm", price: 1783 },
                             { label: "700 x 2.050 mm", price: 1795 },
                             { label: "700 x 2.100 mm", price: 1807 },
@@ -883,7 +907,6 @@
                             { label: "800 x 2.400 mm", price: 2098 },
                             { label: "800 x 2.500 mm", price: 2135 },
                             { label: "800 x 2.600 mm", price: 2197 },
-
                             { label: "900 x 2.000 mm", price: 1876 },
                             { label: "900 x 2.050 mm", price: 1925 },
                             { label: "900 x 1.987 mm", price: 1987 }, 
@@ -893,16 +916,15 @@
                             { label: "900 x 2.400 mm", price: 2123 },
                             { label: "900 x 2.500 mm", price: 2172 },
                             { label: "900 x 2.600 mm", price: 2221 },
-
                             { label: "1.000 x 2.000 mm", price: 1900 },
                             { label: "1.000 x 2.050 mm", price: 1950 },
+                            { label: "1.000 x 2.024 mm", price: 2024 },
                             { label: "1.000 x 2.100 mm", price: 2024 },
                             { label: "1.000 x 2.200 mm", price: 2061 },
                             { label: "1.000 x 2.300 mm", price: 2110 },
                             { label: "1.000 x 2.400 mm", price: 2147 },
                             { label: "1.000 x 2.500 mm", price: 2197 },
                             { label: "1.000 x 2.600 mm", price: 2258 },
-
                             { label: "1.100 x 2.000 mm", price: 1937 },
                             { label: "1.100 x 2.050 mm", price: 1987 },
                             { label: "1.100 x 2.100 mm", price: 2049 },
@@ -911,7 +933,6 @@
                             { label: "1.100 x 2.400 mm", price: 2184 },
                             { label: "1.100 x 2.500 mm", price: 2221 },
                             { label: "1.100 x 2.600 mm", price: 2283 },
-
                             { label: "1.200 x 2.000 mm", price: 1962 },
                             { label: "1.200 x 2.050 mm", price: 2024 },
                             { label: "1.200 x 2.100 mm", price: 2073 },
@@ -919,7 +940,7 @@
                             { label: "1.200 x 2.300 mm", price: 2172 },
                             { label: "1.200 x 2.400 mm", price: 2209 },
                             { label: "1.200 x 2.500 mm", price: 2258 },
-                            { label: "1.200 x 2.308 mm", price: 2308 }
+                            { label: "1.200 x 2.600 mm", price: 2308 }
                         ]
                     },
                     zijlicht: {
@@ -933,7 +954,6 @@
                             { label: "≤ 300 x 2.400 mm", price: 1382 },
                             { label: "≤ 300 x 2.500 mm", price: 1407 },
                             { label: "≤ 300 x 2.600 mm", price: 1432 },
-
                             { label: "400 x 2.000 mm", price: 1370 },
                             { label: "400 x 2.050 mm", price: 1382 },
                             { label: "400 x 2.100 mm", price: 1370 },
@@ -942,17 +962,14 @@
                             { label: "400 x 2.400 mm", price: 1456 },
                             { label: "400 x 2.500 mm", price: 1456 },
                             { label: "400 x 2.600 mm", price: 1493 },
-
                             { label: "450 x 2.000 mm", price: 1345 },
                             { label: "450 x 2.050 mm", price: 1357 },
                             { label: "450 x 2.100 mm", price: 1394 },
                             { label: "450 x 2.200 mm", price: 1382 },
                             { label: "450 x 2.300 mm", price: 1444 },
                             { label: "450 x 2.400 mm", price: 1432 },
-                            { label: "450 x 2.400 mm", price: 1432 },
                             { label: "450 x 2.500 mm", price: 1481 },
                             { label: "450 x 2.600 mm", price: 1469 },
-
                             { label: "500 x 2.000 mm", price: 1382 },
                             { label: "500 x 2.050 mm", price: 1394 },
                             { label: "500 x 2.100 mm", price: 1407 },
@@ -961,7 +978,6 @@
                             { label: "500 x 2.400 mm", price: 1469 },
                             { label: "500 x 2.500 mm", price: 1493 },
                             { label: "500 x 2.600 mm", price: 1506 },
-
                             { label: "550 x 2.000 mm", price: 1407 },
                             { label: "550 x 2.050 mm", price: 1432 },
                             { label: "550 x 2.100 mm", price: 1444 },
@@ -970,7 +986,6 @@
                             { label: "550 x 2.400 mm", price: 1493 },
                             { label: "550 x 2.500 mm", price: 1518 },
                             { label: "550 x 2.600 mm", price: 1530 },
-
                             { label: "600 x 2.000 mm", price: 1444 },
                             { label: "600 x 2.050 mm", price: 1456 },
                             { label: "600 x 2.100 mm", price: 1469 },
@@ -979,7 +994,6 @@
                             { label: "600 x 2.400 mm", price: 1518 },
                             { label: "600 x 2.500 mm", price: 1543 },
                             { label: "600 x 2.600 mm", price: 1555 },
-
                             { label: "700 x 2.000 mm", price: 1481 },
                             { label: "700 x 2.050 mm", price: 1493 },
                             { label: "700 x 2.100 mm", price: 1506 },
@@ -1025,7 +1039,6 @@
             }
         };
 
-        // Actieve selecties bijhouden
         let activeLine = null;
         let activeDoorType = null;
         let selectedDimensionLabel = null;
@@ -1049,39 +1062,32 @@
             selectedGlassLabel = null;
             selectedExtras = {};
             
-            // Reset alle prijzen
             configuration = { basePrice: 0, optionsPrice: 0, colorPrice: 0, glassPrice: 0 };
 
-            // UI selectie updaten voor productlijn
             document.querySelectorAll('.product-line-card').forEach(card => card.classList.remove('selected'));
             element.classList.add('selected');
 
-            // Toon en vul Deurtypes
             const doorSection = document.getElementById('door-type-section');
             const doorOptionsContainer = document.getElementById('door-type-options');
             doorSection.classList.remove('hidden');
             doorOptionsContainer.innerHTML = '';
 
-            // Dynamisch deurtypes ophalen uit de geselecteerde productlijn
             const lineDoors = database[lineId].doors;
             for (const [key, value] of Object.entries(lineDoors)) {
                 const card = document.createElement('div');
                 card.className = 'option-card door-type-card';
-                card.onclick = (e) => selectDoorType(key, card);
+                card.onclick = () => selectDoorType(key, card);
                 card.innerHTML = `
                     <span class="option-name">${value.name}</span>
-                    <span class="option-price">Selecteer</span>
+                    <span class="option-price">Kies type</span>
                 `;
                 doorOptionsContainer.appendChild(card);
             }
 
-            // Reset overige secties
             document.getElementById('matrix-section').classList.add('hidden');
             document.getElementById('options-section').classList.add('hidden');
             document.getElementById('colors-section').classList.add('hidden');
             document.getElementById('glass-section').classList.add('hidden');
-            
-            // Verberg samenvatting container bij reset
             document.getElementById('summary-container').classList.add('hidden');
 
             calculateTotal();
@@ -1091,18 +1097,17 @@
         function selectDoorType(doorKey, element) {
             activeDoorType = doorKey;
             selectedDimensionLabel = null;
-            configuration.basePrice = 0; // reset totdat maat is gekozen
+            configuration.basePrice = 0;
 
             document.querySelectorAll('.door-type-card').forEach(card => card.classList.remove('selected'));
             element.classList.add('selected');
 
-            // Toon en vul Matrix/Maten sectie
             const matrixSection = document.getElementById('matrix-section');
             const matrixTitle = document.getElementById('matrix-title');
             const matrixOptions = document.getElementById('matrix-options');
             
             matrixSection.classList.remove('hidden');
-            matrixTitle.innerHTML = `<span class="step-num">3</span> Kies Afmetingen voor ${database[activeLine].doors[doorKey].name}`;
+            matrixTitle.innerHTML = `<span class="step-num">3</span> Afmetingen voor ${database[activeLine].doors[doorKey].name}`;
 
             matrixOptions.innerHTML = '';
             database[activeLine].doors[doorKey].dimensions.forEach((dim) => {
@@ -1116,9 +1121,7 @@
                 matrixOptions.appendChild(card);
             });
 
-            // Laad ook de overige dynamische opties in voor deze productlijn
             loadExtraOptions();
-
             calculateTotal();
             updateSummary();
         }
@@ -1129,12 +1132,9 @@
             configuration.basePrice = price;
             selectedDimensionLabel = label;
 
-            // Toon de rest van de stappen zodra de maat bekend is
             document.getElementById('options-section').classList.remove('hidden');
             document.getElementById('colors-section').classList.remove('hidden');
             document.getElementById('glass-section').classList.remove('hidden');
-            
-            // Toon de samenvatting zodra er een geldige basisselectie is gemaakt
             document.getElementById('summary-container').classList.remove('hidden');
 
             calculateTotal();
@@ -1144,7 +1144,7 @@
         function loadExtraOptions() {
             const lineData = database[activeLine];
             
-            // 1. Opties inladen
+            // Opties
             const optionsContainer = document.getElementById('dynamic-options');
             optionsContainer.innerHTML = '';
             lineData.options.forEach(opt => {
@@ -1154,7 +1154,7 @@
                 card.onclick = () => handleMultiClickOption(card, opt.price, opt.id, opt.name);
                 
                 card.innerHTML = `
-                    <span class="option-name-container">
+                    <span style="display: flex; align-items: center;">
                         <span class="option-name">${opt.name}</span>
                         <span class="badge-holder"></span>
                     </span>
@@ -1164,17 +1164,16 @@
             });
             document.getElementById('options-info').innerText = lineData.info || '';
 
-            // 2. Kleuren inladen
+            // Kleuren
             const colorsContainer = document.getElementById('dynamic-colors');
             colorsContainer.innerHTML = '';
-            lineData.colors.forEach((col, idx) => {
+            lineData.colors.forEach((col) => {
                 const card = document.createElement('div');
                 card.className = 'option-card color-option-card' + (col.isDefault ? ' selected' : '');
                 if (col.isDefault) {
                     configuration.colorPrice = col.price;
                     selectedColorLabel = col.name;
                 }
-                
                 card.onclick = () => selectColor(card, col.price, col.name);
                 card.innerHTML = `
                     <span class="option-name">${col.name}</span>
@@ -1183,17 +1182,16 @@
                 colorsContainer.appendChild(card);
             });
 
-            // 3. Glas inladen
+            // Glas
             const glassContainer = document.getElementById('dynamic-glass');
             glassContainer.innerHTML = '';
-            lineData.glass.forEach((gl, idx) => {
+            lineData.glass.forEach((gl) => {
                 const card = document.createElement('div');
                 card.className = 'option-card glass-option-card' + (gl.isDefault ? ' selected' : '');
                 if (gl.isDefault) {
                     configuration.glassPrice = gl.price;
                     selectedGlassLabel = gl.name;
                 }
-
                 card.onclick = () => selectGlass(card, gl.price, gl.name);
                 card.innerHTML = `
                     <span class="option-name">${gl.name}</span>
@@ -1203,31 +1201,16 @@
             });
         }
 
-        // Multi-click optie handler (tot max 5x)
         function handleMultiClickOption(element, price, id, name) {
             let currentQty = selectedExtras[id] ? selectedExtras[id].quantity : 0;
-            
-            if (currentQty < 5) {
-                currentQty++;
-            } else {
-                currentQty = 0;
-            }
+            if (currentQty < 5) currentQty++; else currentQty = 0;
 
             const badgeHolder = element.querySelector('.badge-holder');
 
             if (currentQty > 0) {
                 element.classList.add('selected');
-                selectedExtras[id] = { 
-                    price: price, 
-                    name: name,
-                    quantity: currentQty
-                };
-                
-                if (currentQty > 1) {
-                    badgeHolder.innerHTML = `<span class="option-badge">${currentQty}x</span>`;
-                } else {
-                    badgeHolder.innerHTML = '';
-                }
+                selectedExtras[id] = { price, name, quantity: currentQty };
+                badgeHolder.innerHTML = currentQty > 1 ? `<span class="option-badge">${currentQty}x</span>` : '';
             } else {
                 element.classList.remove('selected');
                 delete selectedExtras[id];
@@ -1235,7 +1218,6 @@
             }
             
             configuration.optionsPrice = Object.values(selectedExtras).reduce((sum, val) => sum + (val.price * val.quantity), 0);
-            
             calculateTotal();
             updateSummary();
         }
@@ -1263,7 +1245,6 @@
             document.getElementById('total-display').innerText = `€ ${total.toLocaleString('nl-NL')},-`;
         }
 
-        // Update de samenvattingslijst onderaan
         function updateSummary() {
             const listElement = document.getElementById('selected-options-list');
             listElement.innerHTML = '';
@@ -1274,40 +1255,19 @@
             }
 
             const items = [];
-
-            // 1. Productlijn
-            let lineName = "";
-            if (activeLine === 'economy') lineName = "Novoferm Economy";
-            else if (activeLine === 'modern') lineName = "Bruto Pricelist Modern";
-            else if (activeLine === 'pivot40') lineName = "Pivot 40 Line";
-            else if (activeLine === 'line40') lineName = "40 Line (Standaard)";
+            let lineName = activeLine === 'economy' ? "Novoferm Economy" : activeLine === 'modern' ? "Bruto Pricelist Modern" : activeLine === 'pivot40' ? "Pivot 40 Line" : "40 Line (Standaard)";
             items.push(`Productlijn: ${lineName}`);
-
-            // 2. Deurtype
-            const doorName = database[activeLine].doors[activeDoorType].name;
-            items.push(`Type: ${doorName}`);
-
-            // 3. Afmeting
+            items.push(`Type: ${database[activeLine].doors[activeDoorType].name}`);
             items.push(`Afmetingen: ${selectedDimensionLabel}`);
 
-            // 4. Geselecteerde extra opties (met x-aantal aanduiding)
             Object.values(selectedExtras).forEach(extra => {
                 const qtySuffix = extra.quantity > 1 ? ` (${extra.quantity}x)` : '';
-                const calculatedPrice = extra.price * extra.quantity;
-                items.push(`Optie: ${extra.name}${qtySuffix} - € ${calculatedPrice.toLocaleString('nl-NL')}`);
+                items.push(`Optie: ${extra.name}${qtySuffix} - € ${(extra.price * extra.quantity).toLocaleString('nl-NL')}`);
             });
 
-            // 5. Kleur
-            if (selectedColorLabel) {
-                items.push(`Kleur: ${selectedColorLabel}`);
-            }
+            if (selectedColorLabel) items.push(`Kleur: ${selectedColorLabel}`);
+            if (selectedGlassLabel) items.push(`Glas: ${selectedGlassLabel}`);
 
-            // 6. Glas
-            if (selectedGlassLabel) {
-                items.push(`Glas: ${selectedGlassLabel}`);
-            }
-
-            // Bouw de LI elementen
             items.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item;
@@ -1317,36 +1277,25 @@
             document.getElementById('summary-container').classList.remove('hidden');
         }
 
-        // Kopieer de geselecteerde opties naar het klembord
         function copyOptionsToClipboard() {
             const listItems = document.querySelectorAll('#selected-options-list li');
             if (listItems.length === 0) return;
 
             let textToCopy = "Novoferm Offerte Specificaties:\n";
-            listItems.forEach(item => {
-                textToCopy += `- ${item.textContent}\n`;
-            });
-            
-            const totalPrice = document.getElementById('total-display').innerText;
-            textToCopy += `\nTotaalprijs (Bruto): ${totalPrice}`;
+            listItems.forEach(item => { textToCopy += `- ${item.textContent}\n`; });
+            textToCopy += `\nTotaalprijs (Bruto): ${document.getElementById('total-display').innerText}`;
 
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const copyBtn = document.getElementById('copy-btn');
                 const originalText = copyBtn.innerText;
-                
                 copyBtn.innerText = "Gekopieerd!";
                 copyBtn.classList.add('copy-success');
-                
                 setTimeout(() => {
                     copyBtn.innerText = originalText;
                     copyBtn.classList.remove('copy-success');
                 }, 2000);
-            }).catch(err => {
-                console.error('Fout bij kopiëren: ', err);
-                alert("Kopiëren mislukt. Selecteer en kopieer de tekst handmatig.");
             });
         }
     </script>
-
 </body>
 </html>
