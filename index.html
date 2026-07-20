@@ -32,7 +32,7 @@
             display: flex;
             flex-direction: column;
             
-            /* Achtergrondafbeelding config (Aangepast naar 0.95 voor 10% minder transparantie) */
+            /* Achtergrondafbeelding config */
             background-image: linear-gradient(rgba(248, 250, 252, 0.95), rgba(248, 250, 252, 0.95)), url('achtergrond.jpg');
             background-size: cover;
             background-position: center;
@@ -83,7 +83,7 @@
 
         .nav-links li {
             margin-left: 15px;
-            position: relative; /* Belangrijk voor de positionering van de dropdown */
+            position: relative;
         }
 
         .nav-links a {
@@ -105,14 +105,13 @@
             background-color: var(--brand-green);
         }
 
-        /* ==================== DROPDOWN MENU STYLING ==================== */
+        /* DROPDOWN MENU STYLING */
         .dropdown {
             position: relative;
-            padding-bottom: 10px; /* Zorgt voor een naadloze verbinding */
+            padding-bottom: 10px;
             margin-bottom: -10px;
         }
 
-        /* Het daadwerkelijke dropdown menu (standaard onzichtbaar) */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -146,27 +145,24 @@
             transition: all 0.15s ease;
         }
 
-        /* Hover effect op de dropdown opties */
         .dropdown-menu li a:hover {
             color: #ffffff;
             background-color: var(--brand-green);
         }
 
-        /* Toon het menu zodra je over de dropdown container zweeft */
         .dropdown:hover .dropdown-menu {
             display: block;
         }
 
-        /* Styling voor items die nog niet beschikbaar zijn */
         .dropdown-menu li a.disabled {
-            color: #475569 !important; /* Dofgrijze tekst */
+            color: #475569 !important;
             cursor: not-allowed;
             background-color: transparent !important;
         }
 
         /* SPA Pagina Systeem */
         main {
-            margin-top: 85px; /* Ruimte voor vaste header */
+            margin-top: 85px;
             flex: 1;
             display: flex;
             justify-content: center;
@@ -174,7 +170,6 @@
             padding: 40px 20px;
         }
 
-        /* Verberg niet-actieve pagina's volledig */
         .page-section {
             display: none;
             width: 100%;
@@ -182,7 +177,6 @@
             animation: fadeIn 0.3s ease-in-out;
         }
 
-        /* Toon alleen de actieve pagina */
         .page-section.active-page {
             display: block;
         }
@@ -192,7 +186,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Algemene Elementen */
         h2 {
             color: var(--primary-dark);
             font-size: 28px;
@@ -209,23 +202,7 @@
             text-shadow: 0 1px 2px rgba(255,255,255,0.8);
         }
 
-        /* Kennisbank & AI placeholders */
-        .placeholder-box {
-            background-color: rgba(255, 255, 255, 0.95);
-            border: 2px dashed var(--border-color);
-            padding: 60px 40px;
-            text-align: center;
-            border-radius: 12px;
-            color: var(--text-muted);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
-        }
-
-        .placeholder-box h3 {
-            color: var(--primary-dark);
-            margin-top: 0;
-        }
-
-        /* ==================== CALCULATOR STYLING ==================== */
+        /* CALCULATOR STYLING */
         .calc-section {
             margin-bottom: 25px;
             padding: 25px;
@@ -321,7 +298,6 @@
             display: inline-block;
         }
 
-        /* Totaalbalk onderaan */
         .total-bar {
             position: sticky;
             bottom: 20px;
@@ -361,7 +337,6 @@
             font-style: italic;
         }
 
-        /* Samenvatting */
         .summary-section {
             margin-top: 30px;
             padding: 25px;
@@ -435,7 +410,7 @@
             font-weight: bold;
         }
 
-        /* ==================== MODAL OVERLAY (WACHTWOORD POPUP) ==================== */
+        /* MODAL OVERLAY */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -542,7 +517,7 @@
             background-color: #cbd5e1;
         }
 
-        /* ==================== FLOATING BEZOEKERSTELLER STYLING ==================== */
+        /* FLOATING BEZOEKERSTELLER STYLING */
         .visitor-counter-widget {
             position: fixed;
             bottom: 20px;
@@ -586,9 +561,8 @@
             letter-spacing: 0.5px;
         }
 
-        /* ==================== MEDIA QUERIES VOOR MOBIEL EN INTERACTIEVE RESPONSIVENESS ==================== */
+        /* MEDIA QUERIES */
         @media (max-width: 768px) {
-            /* Zorg dat de header niet buiten beeld valt en nav overdwars swipebaar is */
             nav {
                 flex-direction: row;
                 justify-content: space-between;
@@ -598,17 +572,13 @@
 
             .nav-links {
                 display: flex;
-                overflow-x: auto; /* Maakt horizontaal scrollen mogelijk op mobiel */
+                overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
                 padding-bottom: 5px;
                 gap: 5px;
                 flex-grow: 1;
                 justify-content: flex-start;
-                
-                /* FIX VOOR SAFARI IOS SAFARI BUG: */
                 min-width: 0; 
-                
-                /* Verberg de scrollbar voor een strakker uiterlijk */
                 scrollbar-width: none; 
             }
             
@@ -618,7 +588,6 @@
 
             .nav-links li {
                 margin-left: 5px;
-                /* FIX VOOR SAFARI: voorkom dat de links in elkaar klappen */
                 flex-shrink: 0; 
             }
 
@@ -627,9 +596,8 @@
                 font-size: 14px;
             }
 
-            /* Dropdown optimalisatie voor mobiel swipe-menu (gedraagt zich nu als klik/bezoek-link om bugs te voorkomen) */
             .dropdown:hover .dropdown-menu {
-                display: none; /* Schakel hover dropdown uit op mobiel om verwarring te voorkomen */
+                display: none;
             }
 
             main {
@@ -637,7 +605,6 @@
                 padding: 20px 10px;
             }
 
-            /* Forceer alle grids naar 1 kolom op mobiel */
             .grid-options, 
             div[style*="display: grid"] {
                 grid-template-columns: 1fr !important;
@@ -652,7 +619,6 @@
                 padding: 12px 14px;
             }
 
-            /* Totaalbalk aanpassen aan mobiel */
             .total-bar {
                 padding: 15px;
                 flex-direction: column;
@@ -668,7 +634,6 @@
                 font-size: 24px;
             }
 
-            /* Verplaats de bezoekersteller op mobiel zodat hij niet over de content heen valt */
             .visitor-counter-widget {
                 position: static;
                 margin: 20px auto 0 auto;
@@ -708,6 +673,7 @@
                     <a href="#" id="link-calculator" onclick="checkCalculatorAccess('calculator')">Calculator ▾</a>
                     <ul class="dropdown-menu">
                         <li><a href="#" onclick="checkCalculatorAccess('calculator')">Calculator binnendeuren</a></li>
+                        <li><a href="#" onclick="checkCalculatorAccess('calculator-voordeuren')">Calculator voordeuren</a></li>
                         <li><a href="#" class="disabled" onclick="return false;">Calculator sectionaaldeuren (Binnenkort)</a></li>
                         <li><a href="#" class="disabled" onclick="return false;">Calculator Duoport (Binnenkort)</a></li>
                         <li><a href="#" class="disabled" onclick="return false;">Calculator u-waarde (Binnenkort)</a></li>
@@ -812,12 +778,10 @@
                     </div>
                 </div>
                 
-                <!-- Loading indicator -->
                 <div id="ai-loading" class="hidden" style="text-align: center; color: var(--text-muted); font-style: italic; padding: 20px 0;">
                     DeurAI is de aangesloten PDF-bestanden aan het doorzoeken...
                 </div>
 
-                <!-- AI Antwoord box -->
                 <div id="ai-response-box" class="hidden" style="margin-top: 25px; padding: 25px; background-color: #f8fafc; border-left: 5px solid var(--brand-green); border-radius: 6px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
                     <h4 style="margin-top: 0; color: var(--primary-dark); font-size: 16px; font-weight: 700; margin-bottom: 10px;">Antwoord van DeurAI:</h4>
                     <p id="ai-answer-text" style="font-size: 14px; line-height: 1.6; color: var(--text-dark); margin-bottom: 20px;"></p>
@@ -918,6 +882,80 @@
             </div>
         </section>
 
+        <!-- Sectie 5: Prijzen Calculator (Voordeuren) -->
+        <section id="calculator-voordeuren" class="page-section">
+            <h2>Prijzen Calculator (Voordeuren)</h2>
+            <p class="section-desc">Novoferm Voordeuren Collectie (Comfort, Design & Exclusief)</p>
+
+            <!-- STAP 1: VARIANT / PRODUCTLIJN -->
+            <div class="calc-section">
+                <div class="calc-section-title">
+                    <span class="step-num">1</span> Kies Voordeur Variant
+                </div>
+                <div class="grid-options">
+                    <div class="option-card vd-line-card" onclick="selectVDLine('comfort', this)">
+                        <span class="option-name">Comfort lijn (met glas)</span>
+                        <span class="option-price">€ 1.236,11</span>
+                    </div>
+                    <div class="option-card vd-line-card" onclick="selectVDLine('design_zonder', this)">
+                        <span class="option-name">Design lijn (zonder glas)</span>
+                        <span class="option-price">€ 1.583,63</span>
+                    </div>
+                    <div class="option-card vd-line-card" onclick="selectVDLine('design_met', this)">
+                        <span class="option-name">Design lijn (met glas)</span>
+                        <span class="option-price">€ 1.835,00</span>
+                    </div>
+                    <div class="option-card vd-line-card" onclick="selectVDLine('exclusief_zonder', this)">
+                        <span class="option-name">Exclusief lijn (zonder glas)</span>
+                        <span class="option-price">€ 2.423,93</span>
+                    </div>
+                    <div class="option-card vd-line-card" onclick="selectVDLine('exclusief_met', this)">
+                        <span class="option-name">Exclusief lijn (met glas)</span>
+                        <span class="option-price">€ 2.587,32</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAP 2: VEILIGHEID & DESIGN -->
+            <div id="vd-sec-safety" class="calc-section hidden">
+                <div class="calc-section-title">
+                    <span class="step-num">2</span> Veiligheid, Design & Extra Pakketten
+                </div>
+                <div class="grid-options" id="vd-safety-options"></div>
+            </div>
+
+            <!-- STAP 3: BEGLAZING -->
+            <div id="vd-sec-glass" class="calc-section hidden">
+                <div class="calc-section-title">
+                    <span class="step-num">3</span> Beglazing
+                </div>
+                <div class="grid-options" id="vd-glass-options"></div>
+            </div>
+
+            <!-- STAP 4: DEURGREEP / KEUZES -->
+            <div id="vd-sec-handles" class="calc-section hidden">
+                <div class="calc-section-title">
+                    <span class="step-num">4</span> Deurgrepen & Keuzemogelijkheden
+                </div>
+                <div class="grid-options" id="vd-handles-options"></div>
+            </div>
+
+            <!-- TOTAALBALK VOORDEUREN -->
+            <div class="total-bar">
+                <span class="total-label">TOTAALPRIJS VOORDEUR (BRUTO):</span>
+                <span class="total-display" id="vd-total-display">€ 0,-</span>
+            </div>
+
+            <!-- SAMENVATTING VOORDEUREN -->
+            <div id="vd-summary-container" class="summary-section hidden">
+                <div class="summary-header">
+                    <h3 class="summary-title">Geselecteerde voordeur configuratie:</h3>
+                    <button class="copy-btn" id="vd-copy-btn" onclick="copyVDOptionsToClipboard()">Kopieer lijst</button>
+                </div>
+                <ul id="vd-selected-options-list" class="selected-options-list"></ul>
+            </div>
+        </section>
+
     </main>
 
     <!-- Zwevende Bezoekersteller Widget -->
@@ -931,13 +969,11 @@
         <p class="credits-text">Gemaakt door: Danny Zeef</p>
     </div>
 
-    <!-- JavaScript Logica en SPA Navigatie -->
+    <!-- JavaScript Logica -->
     <script>
-        // State om bij te houden of de gebruiker al is geauthenticeerd
         let hasCalculatorAccess = false;
         let pendingSectionId = null;
 
-        // Controleert of de calculator beveiligd is en opent de popup indien nodig
         function checkCalculatorAccess(sectionId) {
             if (hasCalculatorAccess) {
                 navigateTo(sectionId);
@@ -947,7 +983,6 @@
             }
         }
 
-        // Modaal openen en invoerveld leegmaken
         function openPasswordModal() {
             document.getElementById('password-modal').classList.remove('hidden');
             const inputField = document.getElementById('modal-code-input');
@@ -956,19 +991,17 @@
             setTimeout(() => inputField.focus(), 50);
         }
 
-        // Modaal handmatig sluiten
         function closePasswordModal() {
             document.getElementById('password-modal').classList.add('hidden');
             pendingSectionId = null;
         }
 
-        // Toegangscode verifiëren
         function submitAccessCode() {
             const codeInput = document.getElementById('modal-code-input').value.trim();
             const errorElement = document.getElementById('modal-error-msg');
             
             if (codeInput === '5432') {
-                hasCalculatorAccess = true; // Toegang verlenen voor de huidige sessie
+                hasCalculatorAccess = true;
                 document.getElementById('password-modal').classList.add('hidden');
                 errorElement.innerText = '';
                 if (pendingSectionId) {
@@ -981,40 +1014,32 @@
             }
         }
 
-        // SPA Navigatie Logica
         function navigateTo(sectionId) {
-            // 1. Verberg alle pagina's en verwijder active-page klasse
             document.querySelectorAll('.page-section').forEach(section => {
                 section.classList.remove('active-page');
             });
 
-            // 2. Toon de geselecteerde pagina
             const targetSection = document.getElementById(sectionId);
             if (targetSection) {
                 targetSection.classList.add('active-page');
             }
 
-            // 3. Update actieve tab in het menu
             document.querySelectorAll('.nav-links > li > a').forEach(link => {
                 link.classList.remove('active');
             });
             
-            // Als we naar calculator navigeren, zetten we de actieve status op de hoofdknop "Calculator"
-            const activeLinkId = (sectionId === 'calculator') ? 'link-calculator' : `link-${sectionId}`;
+            const activeLinkId = (sectionId.startsWith('calculator')) ? 'link-calculator' : `link-${sectionId}`;
             const activeLink = document.getElementById(activeLinkId);
             if (activeLink) {
                 activeLink.classList.add('active');
             }
 
-            // Scroll naar boven bij het wisselen van pagina
             window.scrollTo(0, 0);
         }
 
-        // Live bezoekersteller via een gratis publieke teller-API
         async function updateVisitorCounter() {
             const counterText = document.getElementById('visitor-count');
             try {
-                // De API verhoogt de teller live bij elk verzoek (up) en geeft het nieuwe getal terug
                 const response = await fetch('https://api.counterapi.dev/v1/deurai_danny_zeef/views/up');
                 if (response.ok) {
                     const data = await response.json();
@@ -1028,21 +1053,17 @@
             }
         }
 
-        // ==================== MINI DEURAI ZOEK LOGICA ====================
         function askDeurAI() {
             const queryInput = document.getElementById('ai-question');
             const query = queryInput.value.trim().toLowerCase();
-            
             if (!query) return;
 
             const loadingBox = document.getElementById('ai-loading');
             const responseBox = document.getElementById('ai-response-box');
             
-            // Toon loader, verberg oud resultaat
             loadingBox.classList.remove('hidden');
             responseBox.classList.add('hidden');
 
-            // Simuleer AI rekentijd / scantijd (1.2 seconden)
             setTimeout(() => {
                 loadingBox.classList.add('hidden');
                 
@@ -1051,46 +1072,23 @@
                 let location = "";
                 let pdfUrl = "#";
 
-                // Slimme trefwoord-matching database
                 if (query.includes('t100') || query.includes('f1') || query.includes('f 1')) {
                     answer = "Foutcode F1 op de Novoferm T100 besturing duidt op een activering of defect van de veiligheidslijst (SKS) of de fotocel. Controleer of er obstakels in de deuropening staan, controleer de spiraalkabel op breuken en reinig de optische sensoren in het rubberprofiel.";
                     sourcePdf = "Novoferm T100 Handleiding";
                     location = "Pagina 14, Hoofdstuk 5.2 (Storingsdiagnose & Foutcodes)";
                     pdfUrl = "documenten/t100-nederlands.pdf";
-                } 
-                else if (query.includes('ts971') || query.includes('gfa') || query.includes('eindpositie') || query.includes('afstellen')) {
-                    answer = "Om de eindposities (afstelling van de motor) in te stellen op de GfA TS971 poortbesturing, gebruik je het frontpaneel. Druk op de programmeertoets en ga naar menu-optie 1.1 om de bovenste eindpositie vast te leggen. Gebruik menu-optie 1.2 voor de onderste eindpositie. Bevestig telkens met de ronde selectieknop.";
+                } else if (query.includes('ts971') || query.includes('gfa') || query.includes('eindpositie') || query.includes('afstellen')) {
+                    answer = "Om de eindposities in te stellen op de GfA TS971 poortbesturing, gebruik je het frontpaneel. Druk op de programmeertoets en ga naar menu-optie 1.1 (bovenste) en 1.2 (onderste).";
                     sourcePdf = "GfA TS971 Uitgebreide Handleiding";
-                    location = "Pagina 22, Hoofdstuk 7.2 (Digitale Eindschakelaars Programmeren)";
+                    location = "Pagina 22, Hoofdstuk 7.2";
                     pdfUrl = "documenten/ts971-nederlands.pdf";
-                } 
-                else if (query.includes('cs320') || query.includes('marantec') || query.includes('fout 8') || query.includes('f8')) {
-                    answer = "Bij de Marantec CS320 besturing geeft het LCD-display storingen grafisch weer. 'Fout 8' signaleert dat de sluitkantbeveiliging constant aangesproken of onderbroken is. Meet de weerstandwaarde van de onderlat (8,2 kOhm) na en controleer of de invoermodule in de behuizing goed vastklikt.";
-                    sourcePdf = "Marantec CS320 Montagehandleiding";
-                    location = "Pagina 31, Hoofdstuk 9.1 (Diagnoseweergave en Oplossingen)";
-                    pdfUrl = "documenten/cs320-nederlands.pdf";
-                } 
-                else if (query.includes('dcc-80') || query.includes('dcc80') || query.includes('dock') || query.includes('dockleveler')) {
-                    answer = "Voor de Novoferm DCC-80 docklevelerbesturing dient de hydraulische automatische nulpositie (retour naar ruststand) gecalibreerd te worden. Dit doe je via parameter P2 in het installateursmenu. Zorg ervoor dat de dockleveler volledig vrij is van belasting tijdens deze configuratie.";
-                    sourcePdf = "Novoferm DCC-80 Technische Handleiding";
-                    location = "Pagina 8, Sectie 3.4 (Hydraulische Parameters & Inbedrijfstelling)";
-                    pdfUrl = "documenten/dcc-80-nederlands.pdf";
-                } 
-                else if (query.includes('ipd-s') || query.includes('ipds') || query.includes('parameters') || query.includes('snelheid')) {
-                    answer = "Bij de Novoferm IPD-S deuraandrijving kun je de open- en sluitsnelheden direct wijzigen in het parametersysteem via parameter P12 (snelheid openen) en P13 (snelheid sluiten). Let op: pas de krachten na wijziging aan conform de geldende EN 12453 CE-veiligheidsnormen.";
-                    sourcePdf = "Novoferm IPD-S Installatie-instructies";
-                    location = "Pagina 18, Tabel 4 (Geavanceerd Parameteroverzicht)";
-                    pdfUrl = "documenten/ipd-s-nederlands.pdf";
-                } 
-                else {
-                    // Fallback als er geen specifiek trefwoord wordt getriggerd
-                    answer = "Ik heb je vraag geanalyseerd over de aangesloten documenten. Hoewel ik geen exacte tekstmatch kon vinden voor deze specifieke foutcode of term, raad ik je aan om de parameterlijst of het storingshoofdstuk te openen van de besturing die je momenteel monteert. Alle gekoppelde documenten bevatten achterin een uitgebreide storingsmatrix.";
+                } else {
+                    answer = "Raadpleeg de relevante storings- en parameterlijsten in de handleidingen van de specifieke besturing in onze Kennisbank.";
                     sourcePdf = "Alle beschikbare Kennisbank PDF's";
-                    location = "Sectie: Bijlagen / Storingsdiagnose achterin de handleidingen";
+                    location = "Sectie: Bijlagen / Storingsdiagnose";
                     pdfUrl = "#kennisbank";
                 }
 
-                // Vul de data in de UI
                 document.getElementById('ai-answer-text').innerText = answer;
                 document.getElementById('ai-source-pdf').innerText = sourcePdf;
                 document.getElementById('ai-source-location').innerText = location;
@@ -1105,18 +1103,16 @@
                     linkElement.removeAttribute('onclick');
                 }
 
-                // Toon de antwoordbox
                 responseBox.classList.remove('hidden');
             }, 1200);
         }
 
-        // Zorg dat alles standaard actief staat bij het inladen
         window.onload = function() {
             navigateTo('introductie');
             updateVisitorCounter();
         };
 
-        // DATABASE EN BEREKENINGS-LOGICA (ONGEMOEID EN COMPLEET)
+        /* ==================== BINNENDEUREN DATABASE & CALCULATOR LOGICA ==================== */
         const database = {
             economy: {
                 doors: {
@@ -1760,7 +1756,6 @@
         function loadExtraOptions() {
             const lineData = database[activeLine];
             
-            // Opties
             const optionsContainer = document.getElementById('dynamic-options');
             optionsContainer.innerHTML = '';
             lineData.options.forEach(opt => {
@@ -1780,7 +1775,6 @@
             });
             document.getElementById('options-info').innerText = lineData.info || '';
 
-            // Kleuren
             const colorsContainer = document.getElementById('dynamic-colors');
             colorsContainer.innerHTML = '';
             lineData.colors.forEach((col) => {
@@ -1798,7 +1792,6 @@
                 colorsContainer.appendChild(card);
             });
 
-            // Glas
             const glassContainer = document.getElementById('dynamic-glass');
             glassContainer.innerHTML = '';
             lineData.glass.forEach((gl) => {
@@ -1882,6 +1875,227 @@
 
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const copyBtn = document.getElementById('copy-btn');
+                const originalText = copyBtn.innerText;
+                copyBtn.innerText = "Gekopieerd!";
+                copyBtn.classList.add('copy-success');
+                setTimeout(() => {
+                    copyBtn.innerText = originalText;
+                    copyBtn.classList.remove('copy-success');
+                }, 2000);
+            });
+        }
+
+        /* ==================== VOORDEUREN DATABASE & CALCULATOR LOGICA ==================== */
+        const voordeurenData = {
+            lines: {
+                comfort: { name: "Comfort lijn (met glas)", price: 1236.11 },
+                design_zonder: { name: "Design lijn (zonder glas)", price: 1583.63 },
+                design_met: { name: "Design lijn (met glas)", price: 1835.00 },
+                exclusief_zonder: { name: "Exclusief lijn (zonder glas)", price: 2423.93 },
+                exclusief_met: { name: "Exclusief lijn (met glas)", price: 2587.32 }
+            },
+            safety: [
+                { id: "rozet_std", name: "Incl. veiligheidsrozet", price: 0, default: true },
+                { id: "rozet_kerntrek", name: "Incl. veiligheidsrozet met kerntrekbeveiliging & cilinderafdekking", price: 0 },
+                { id: "rc2", name: "RC2 veiligheidspakket (incl. P4A glas/4e scharnier/certificaat)", price: 309.53 },
+                { id: "rc3", name: "RC3 veiligheidspakket (incl. P5A glas/boorbescherming)", price: 476.31 },
+                { id: "black_edition", name: "Extra pakket Black Edition (duwstang, rozet, kruk in zwart)", price: 99.24 },
+                { id: "inbouw_scharnieren", name: "Extra pakket inbouw scharnieren (2 stuks, niet bij RC3)", price: 299.38 },
+                { id: "rolband_scharnieren", name: "Extra pakket rolband scharnieren (2 stuks, zilver)", price: 232.88 },
+                { id: "ral_fijnstructuur", name: "Grote keuze aan fijn gestructureerde RAL-kleuren", price: 499.53 },
+                { id: "binnen_zelfde_kleur", name: "Deurelement binnenkant in dezelfde kleur als buitenkant", price: 159.80 },
+                { id: "plintplaat", name: "Roestvrijstalen plintplaat per stuk (zwart bij Black Edition)", price: 268.43 }
+            ],
+            glass: [
+                { id: "glas_std", name: "Standaardbeglazing: helder glas / satinato / ornament 504", price: 0, default: true },
+                { id: "motiefglas", name: "Motiefglas (modellen afhankelijk)", price: 207.65 },
+                { id: "vsg_vsg", name: "Veiligheidsbeglazing VSG/VSG (P4A bij RC2 / P5A bij RC3)", price: 207.65 }
+            ],
+            handles: [
+                { id: "greep_std_schuin", name: "Deurgreep 350 of 900 mm rond, schuine afloop, incl. binnenkruk", price: 0, default: true },
+                { id: "greep_std_recht", name: "Deurgreep 350 of 900 mm rond, rechte afloop, incl. binnenkruk", price: 0 },
+                { id: "greep_1400_vk", name: "Deurgreep 1.400 mm vierkant, schuine afloop, incl. binnenkruk", price: 214.56 },
+                { id: "greep_1400_rd", name: "Deurgreep 1.400 mm rond, schuine afloop, incl. binnenkruk", price: 214.56 }
+            ]
+        };
+
+        let activeVDLineKey = null;
+        let selectedVDSafety = {};
+        let selectedVDGlassKey = null;
+        let selectedVDHandleKey = null;
+
+        function selectVDLine(lineKey, element) {
+            activeVDLineKey = lineKey;
+            
+            document.querySelectorAll('.vd-line-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+
+            document.getElementById('vd-sec-safety').classList.remove('hidden');
+            document.getElementById('vd-sec-glass').classList.remove('hidden');
+            document.getElementById('vd-sec-handles').classList.remove('hidden');
+            document.getElementById('vd-summary-container').classList.remove('hidden');
+
+            renderVDOptions();
+            calculateVDTotal();
+            updateVDSummary();
+        }
+
+        function renderVDOptions() {
+            // Safety
+            const safetyContainer = document.getElementById('vd-safety-options');
+            safetyContainer.innerHTML = '';
+            voordeurenData.safety.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'option-card vd-safety-card';
+                if (item.default && selectedVDSafety[item.id] === undefined) {
+                    selectedVDSafety[item.id] = item;
+                }
+                if (selectedVDSafety[item.id]) {
+                    card.classList.add('selected');
+                }
+                card.onclick = () => toggleVDSafety(item, card);
+                card.innerHTML = `
+                    <span class="option-name">${item.name}</span>
+                    <span class="option-price ${item.price === 0 ? 'free' : ''}">${item.price === 0 ? 'Inbegrepen' : '+ € ' + item.price.toLocaleString('nl-NL', {minimumFractionDigits: 2})}</span>
+                `;
+                safetyContainer.appendChild(card);
+            });
+
+            // Glass
+            const glassContainer = document.getElementById('vd-glass-options');
+            glassContainer.innerHTML = '';
+            voordeurenData.glass.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'option-card vd-glass-card';
+                if (item.default && !selectedVDGlassKey) {
+                    selectedVDGlassKey = item.id;
+                }
+                if (selectedVDGlassKey === item.id) {
+                    card.classList.add('selected');
+                }
+                card.onclick = () => selectVDGlass(item, card);
+                card.innerHTML = `
+                    <span class="option-name">${item.name}</span>
+                    <span class="option-price ${item.price === 0 ? 'free' : ''}">${item.price === 0 ? 'Inbegrepen' : '+ € ' + item.price.toLocaleString('nl-NL', {minimumFractionDigits: 2})}</span>
+                `;
+                glassContainer.appendChild(card);
+            });
+
+            // Handles
+            const handleContainer = document.getElementById('vd-handles-options');
+            handleContainer.innerHTML = '';
+            voordeurenData.handles.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'option-card vd-handle-card';
+                if (item.default && !selectedVDHandleKey) {
+                    selectedVDHandleKey = item.id;
+                }
+                if (selectedVDHandleKey === item.id) {
+                    card.classList.add('selected');
+                }
+                card.onclick = () => selectVDHandle(item, card);
+                card.innerHTML = `
+                    <span class="option-name">${item.name}</span>
+                    <span class="option-price ${item.price === 0 ? 'free' : ''}">${item.price === 0 ? 'Inbegrepen' : '+ € ' + item.price.toLocaleString('nl-NL', {minimumFractionDigits: 2})}</span>
+                `;
+                handleContainer.appendChild(card);
+            });
+        }
+
+        function toggleVDSafety(item, card) {
+            if (selectedVDSafety[item.id]) {
+                delete selectedVDSafety[item.id];
+                card.classList.remove('selected');
+            } else {
+                selectedVDSafety[item.id] = item;
+                card.classList.add('selected');
+            }
+            calculateVDTotal();
+            updateVDSummary();
+        }
+
+        function selectVDGlass(item, card) {
+            selectedVDGlassKey = item.id;
+            document.querySelectorAll('.vd-glass-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            calculateVDTotal();
+            updateVDSummary();
+        }
+
+        function selectVDHandle(item, card) {
+            selectedVDHandleKey = item.id;
+            document.querySelectorAll('.vd-handle-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            calculateVDTotal();
+            updateVDSummary();
+        }
+
+        function calculateVDTotal() {
+            if (!activeVDLineKey) return;
+            let total = voordeurenData.lines[activeVDLineKey].price;
+
+            Object.values(selectedVDSafety).forEach(opt => {
+                total += opt.price;
+            });
+
+            if (selectedVDGlassKey) {
+                const glassObj = voordeurenData.glass.find(g => g.id === selectedVDGlassKey);
+                if (glassObj) total += glassObj.price;
+            }
+
+            if (selectedVDHandleKey) {
+                const handleObj = voordeurenData.handles.find(h => h.id === selectedVDHandleKey);
+                if (handleObj) total += handleObj.price;
+            }
+
+            document.getElementById('vd-total-display').innerText = `€ ${total.toLocaleString('nl-NL', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        }
+
+        function updateVDSummary() {
+            const listElement = document.getElementById('vd-selected-options-list');
+            listElement.innerHTML = '';
+
+            if (!activeVDLineKey) {
+                document.getElementById('vd-summary-container').classList.add('hidden');
+                return;
+            }
+
+            const items = [];
+            items.push(`Voordeur Variant: ${voordeurenData.lines[activeVDLineKey].name} - € ${voordeurenData.lines[activeVDLineKey].price.toLocaleString('nl-NL', {minimumFractionDigits: 2})}`);
+
+            Object.values(selectedVDSafety).forEach(item => {
+                items.push(`Veiligheid / Design: ${item.name}${item.price > 0 ? ' - € ' + item.price.toLocaleString('nl-NL', {minimumFractionDigits: 2}) : ''}`);
+            });
+
+            if (selectedVDGlassKey) {
+                const glassObj = voordeurenData.glass.find(g => g.id === selectedVDGlassKey);
+                if (glassObj) items.push(`Beglazing: ${glassObj.name}${glassObj.price > 0 ? ' - € ' + glassObj.price.toLocaleString('nl-NL', {minimumFractionDigits: 2}) : ''}`);
+            }
+
+            if (selectedVDHandleKey) {
+                const handleObj = voordeurenData.handles.find(h => h.id === selectedVDHandleKey);
+                if (handleObj) items.push(`Deurgreep: ${handleObj.name}${handleObj.price > 0 ? ' - € ' + handleObj.price.toLocaleString('nl-NL', {minimumFractionDigits: 2}) : ''}`);
+            }
+
+            items.forEach(itemText => {
+                const li = document.createElement('li');
+                li.textContent = itemText;
+                listElement.appendChild(li);
+            });
+
+            document.getElementById('vd-summary-container').classList.remove('hidden');
+        }
+
+        function copyVDOptionsToClipboard() {
+            const listItems = document.querySelectorAll('#vd-selected-options-list li');
+            if (listItems.length === 0) return;
+
+            let textToCopy = "Novoferm Voordeur Offerte Specificaties:\n";
+            listItems.forEach(item => { textToCopy += `- ${item.textContent}\n`; });
+            textToCopy += `\nTotaalprijs Voordeur (Bruto): ${document.getElementById('vd-total-display').innerText}`;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const copyBtn = document.getElementById('vd-copy-btn');
                 const originalText = copyBtn.innerText;
                 copyBtn.innerText = "Gekopieerd!";
                 copyBtn.classList.add('copy-success');
